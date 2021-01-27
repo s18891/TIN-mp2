@@ -1,0 +1,74 @@
+﻿<%- include('./fragments/header.ejs') %>
+
+			<div id="prawy">
+				<div id="lewy_srodek">
+
+					<script type="application/javascript" src="/js/validationEmpForm.js"></script>
+					<h2><%= pageTitle %></h2>
+
+					<form class="form" method="post" action="<%=formAction%>"
+						  novalidate onsubmit="return validateForm();"><div id="formularz">
+							<input type="hidden" name="_id" value="<%= emp._id %>">
+
+
+							Podaj swoje imię: * <input type="text" name="Imie" id="Imie" placeholder="2-60 znaków" value="<%= sluchacz.Imie %>"
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
+						Podaj swoje nazwisko: * <input type="text" name="Nazwisko" id="Nazwisko" placeholder="2-60 znaków" value="<%= sluchacz.Nazwisko %>"
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
+						Podaj date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" placeholder="np. 2020-01-01" value="<%= sluchacz.Data_dolaczenia %>"
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %> /><br /> <br />
+							Skad wiesz o koncercie: * 	<input type="text" name="Skad_wie_o_koncercie" id="Skad_wie_o_koncercie" placeholder="2-60 znaków" value="<%= sluchacz.Skad_wie_o_koncercie %>"
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %> /><br /> <br />
+
+						<br /><br /><br />
+							<% if (formMode == 'showDetails') { %>
+								<div class="section-buttons">
+									<a href="/sluchacze/edit/<%= sluchacz._IdSluchacza %>" class="button-edit">Edytuj</a>
+								</div>
+							<% } %>
+						<input type="submit" value="Dodaj osobę" />
+						<input type="reset" value="Wyczyść dane" />
+					</div></form>
+
+					<% if (formMode == 'showDetails' || formMode == 'edit') { %>
+						<h2>
+							Szczegóły Rezerwacji
+						</h2>
+						<table class="table-list">
+							<thead>
+							<tr>
+								<th>Ilosc osob</th>
+								<th>Czy_przedplata</th>
+
+							</tr>
+							</thead>
+							<tbody>
+							<% for (let s of sluchacz.sluchacze) { %>
+								<tr>
+									<td><%= s.Ilosc_osob %></td>
+									<td><%= s.Czy_przedplata %></td>
+
+								</tr>
+							<% } %>
+							</tbody>
+						</table>
+					<% } %>
+
+
+
+					<div class="form-buttons">
+						<p id="errorsSummary" class="errors-text"></p>
+						<% if (formMode != 'showDetails') { %>
+						<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+						<a class="form-button-cancel" href="/sluchacze">Anuluj</a>
+						<% } else { %>
+							<a class="form-button-cancel" href="/sluchacze">Powrót</a>
+						<% } %>
+					</div>
+					<a href="/sluchacze">
+						<button>Powrót listy osób</button>
+					</a>
+
+				</div>
+
+<%- include('./fragments/footer.ejs') %>

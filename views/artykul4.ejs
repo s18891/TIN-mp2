@@ -1,0 +1,64 @@
+<%- include('./fragments/header.ejs') %>
+
+        <div id="prawy">
+            <div id="lewy_srodek">
+
+                <h2>Szczegóły koncertu</h2>
+
+                <form><div id="formularz2">
+                    Miejsce koncertu: <input name="Miejsce" placeholder="Warszawa" disabled="disabled"/><br /> <br />
+                    Data koncertu: <input name="Data" placeholder="02.11.2020" disabled="disabled"/><br /> <br />
+                    Maksymalna ilość osób: <input type="number" id="max_ilosc" name="maksymalna ilość osób"
+                           min="0" max="100000" placeholder="200" disabled="disabled"> <br /> <br />
+                    Czas trwania koncertu: <input type="number" id="czas_trwania" name="czas trwania koncertu"
+                           min="1" max="100000" placeholder="120" disabled="disabled">
+
+                    </br> </br>
+
+
+                    <br />
+
+                </div></form>
+                <input type="submit" value="Edytuj" />
+                <a href="/koncerty">
+                    <button>Powrót do koncertów</button>
+                </a>
+
+                <h2>Rezerwacje na ten koncert</h2>
+
+
+                <table class="tg">
+                    <thead>
+                    <tr>
+                        <th class="tg-0lax">Numer rezerwacji</th>
+                        <th class="tg-0lax">Imię</th>
+                        <th class="tg-0lax">Nazwisko</th>
+
+                        <th class="tg-0lax">Ilość osób</th>
+                        <th class="tg-0lax">Czy przedpłata</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="tg-0lax">1</td>
+                        <td class="tg-0lax">Adam</td>
+                        <td class="tg-0lax">Nowak</td>
+                        <td class="tg-0lax">2</td>
+                        <td class="tg-0lax">Tak</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-0lax">2</td>
+                        <td class="tg-0lax">Maria</td>
+                        <td class="tg-0lax">Dudek</td>
+                        <td class="tg-0lax">4</td>
+                        <td class="tg-0lax">Nie</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+            </div>
+
+
+<%- include('./fragments/footer.ejs') %>

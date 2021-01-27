@@ -1,0 +1,75 @@
+<%- include('./fragments/header.ejs') %>
+
+        <div id="prawy">
+            <div id="lewy_srodek">
+
+                <h2>Koncerty</h2>
+
+                <table class="tg">
+                    <thead>
+                    <tr>
+                        <th class="tg-0lax">Miejsce Koncertu</th>
+                        <th class="tg-0lax">Data koncertu</th>
+                        <th class="tg-0lax">Maksymalna ilość miejsc</th>
+                        <th class="tg-0lax">Czas trwania koncertu</th>
+                        <th class="tg-0lax">Szczegóły</th>
+                        <th class="tg-0lax">Edytuj</th>
+                        <th class="tg-0lax">Usuń</th>
+
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <% for (let koncert of koncerty){ %>
+                        <tr>
+                        <td class="tg-0lax"><%= koncert.Miejsce_koncertu %></td>
+                        <td class="tg-0lax"><%= koncert.Data_koncertu %></td>
+                        <td class="tg-0lax"><%= koncert.Maksymalna_ilosc_miejsc %></td>
+                        <td class="tg-0lax"><%= koncert.Czas_trwania_koncertu %></td>
+                        <td class="tg-0lax"> <a href="/koncerty/details/<%=koncert._IdKoncertu%>">
+                                    <button>Szczegóły</button>
+                                </a></td>
+                        <td class="tg-0lax"> <a href="/koncerty/edit/<%=koncert._IdKoncertu%>">
+                                    <button>Edytuj</button>
+                                </a></td>
+                        <td class="tg-0lax"><a href="/koncerty/delete/<%=koncert._IdKoncertu%>">
+                                    <button>Usuń</button>
+                        </a></td>
+
+
+                    </tr>
+                    <% } %>
+
+                    <tr>
+                        <td class="tg-0lax">Kraków</td>
+                        <td class="tg-0lax">10.11.2020</td>
+                        <td class="tg-0lax">100</td>
+                        <td class="tg-0lax">120min</td>
+                        <td class="tg-0lax"> <a href="/koncerty/details/2">
+                            <button>Szczegóły</button>
+                        </a></td>
+                        <td class="tg-0lax"> <a href="/koncerty/add">
+                            <button>Edytuj</button>
+                        </a></td>
+                        <td class="tg-0lax"><a href="/koncerty">
+                            <button>Usuń</button>
+                        </a></td>                   </tr>
+                    </tbody>
+                </table>
+                </br>
+
+                <a href="/koncerty/add">
+                    <button>Dodaj nowy koncert</button>
+                </a>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+<%- include('./fragments/footer.ejs') %>
