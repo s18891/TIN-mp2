@@ -11,10 +11,8 @@ exports.getSluchaczeById = (IdSluchacza) => {
         {
             include: [{
                 model: Rezerwacje,
-                as: 'rezerwacje',
                 include: [{
                     model: Koncerty,
-                    as: 'koncerty'
                 }]
             }]
         });

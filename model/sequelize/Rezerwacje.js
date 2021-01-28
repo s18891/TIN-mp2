@@ -8,11 +8,11 @@ const Rezerwacje = sequelize.define('Rezerwacje', {
         allowNull: false,
         primaryKey: true,
     },
-    Sluchacze_IdSluchacza: {
+    SluchaczeIdSluchacza: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    Koncerty_IdKoncertu: {
+    KoncertyIdKoncertu: {
         type: Sequelize.INTEGER,
         allowNull: false
     },

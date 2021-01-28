@@ -3,19 +3,47 @@
         <div id="prawy">
             <div id="lewy_srodek">
 
-                <h2>Dodanie koncertu</h2>
+                <h2><%= pageTitle %></h2>
 
-                <form><div id="formularz2">
-                    Podaj miejsce koncertu: * <input name="Miejsce" /><br /> <br />
-                    Podaj datę koncertu: * <input name="Data" /><br /> <br />
-                    Podaj maksymalną ilość osób: <input type="number" id="max_ilosc" name="maksymalna ilość osób"
-                           min="0" max="100000" placeholder="200"> <br /> <br />
-                    Podaj czas trwania koncertu: <input type="number" id="czas_trwania" name="czas trwania koncertu"
-                           min="1" max="100000" placeholder="120">
+                <form method="POST"><div id="formularz2">
+                    Podaj miejsce koncertu: * <input
+                        name="Miejsce_koncertu"
+                        <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                        value="<%= koncert.Miejsce_koncertu %>"
+                        /><br /> <br />
+                    Podaj datę koncertu: * <input
+                                name="Data_koncertu"
+                                type="date"
+                                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                                value="<%= koncert.Data_koncertu ? koncert.Data_koncertu.toISOString().split('T')[0] : ''  %>"
+                        /><br /> <br />
+                    Podaj maksymalną ilość osób: <input
+                                type="number"
+                                id="max_ilosc"
+                                name="Maksymalna_ilosc_miejsc"
+                                min="0"
+                                max="100000"
+                                placeholder="200"
+                                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                                value="<%= koncert.Maksymalna_ilosc_miejsc %>"
+                        /><br /> <br />
+                    Podaj czas trwania koncertu: <input
+                                type="number"
+                                id="czas_trwania"
+                                name="Czas_trwania_koncertu"
+                                min="1"
+                                max="100000"
+                                placeholder="120"
+                            <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                                value="<%= koncert.Czas_trwania_koncertu %>"
+                                />
 
                     </br></br> <br />
-                    <input type="submit" value="Dodaj koncert" />
-                    <input type="reset" value="Wyczyść dane" />
+                    <%if (formMode != 'showDetails') { %>
+                        <input type="submit" value="Dodaj koncert" />
+                        <input type="reset" value="Wyczyść dane" />
+                    <% } %>
+
                 </div></form><br />
                 <a href="/koncerty">
                     <button>Powrót do koncertów</button>

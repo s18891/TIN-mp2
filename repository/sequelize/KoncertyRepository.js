@@ -7,14 +7,17 @@ exports.getKoncerty = () => {
 };
 
 exports.getKoncertyById = (IdKoncertu) => {
-    return Koncerty.findByPk(IdKoncertu,
+    return Koncerty.findOne(
         {
+            where: {
+                _IdKoncertu: IdKoncertu
+            },
             include: [{
                 model: Rezerwacje,
-                as: 'rezerwacje',
+                required: false,
                 include: [{
                     model: Sluchacze,
-                    as: 'sluchacze'
+                    required: false,
                 }]
             }]
         });
@@ -30,10 +33,6 @@ exports.createKoncerty = (newKoncertData) => {
 };
 
 exports.updateKoncerty = (IdKoncertu, KoncertData) => {
-    const Miejsce_koncertu = SluchaczData.Miejsce_koncertu;
-    const Data_koncertu = SluchaczData.Data_koncertu;
-    const Maksymalna_ilosc_miejsc = SluchaczData.Maksymalna_ilosc_miejsc;
-    const Czas_trwania_koncertu = SluchaczData.Czas_trwania_koncertu;
     return Koncerty.update(KoncertData, {where: {_IdKoncertu: IdKoncertu }});
 };
 

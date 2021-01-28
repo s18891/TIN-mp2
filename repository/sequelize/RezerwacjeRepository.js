@@ -10,11 +10,9 @@ exports.getRezerwacje = () => {
     return Rezerwacje.findAll({include: [
             {
                 model: Sluchacze,
-                as: 'sluchacze'
             },
             {
                 model: Koncerty,
-                as: 'koncert'
             }]
     });
 };
@@ -24,11 +22,9 @@ exports.getRezerwacjeById = (IdRezerwacji) => {
     return Rezerwacje.findByPk(IdRezerwacji, {include: [
             {
                 model: Sluchacze,
-                as: 'sluchacze'
             },
             {
                 model: Koncerty,
-                as: 'koncerty'
             }]
     });
 };

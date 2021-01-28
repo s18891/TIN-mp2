@@ -5,10 +5,11 @@ const Rezerwacje = require('../../model/sequelize/Rezerwacje');
 const Sluchacze = require('../../model/sequelize/Sluchacze');
 
 module.exports = () => {
-    Sluchacze.hasMany(Rezerwacje, {as: 'rezerwacje', foreignKey: {name: 'IdSluchacza', allowNull: false}, constraints: true, onDelete: 'CASCADE'}); //klucze obce do poprawy, walidacja pół unikalnych, przy próbie dodania 2 osob o tym samym mailu ma wyjśc błąd
-    Rezerwacje.belongsTo(Sluchacze, {as: 'sluchacze', foreignKey: {name: 'Sluchacze_IdSluchacza', allowNull: false} } );
-    Koncerty.hasMany(Rezerwacje, {as: 'rezerwacje', foreignKey: {name: 'IdKoncertu', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
-    Rezerwacje.belongsTo(Koncerty, {as: 'koncert', foreignKey: {name: 'Koncerty_IdKoncertu', allowNull: false} });
+    Sluchacze.hasMany(Rezerwacje, { onDelete: 'CASCADE'}); //klucze obce do poprawy, walidacja pół unikalnych, przy próbie dodania 2 osob o tym samym mailu ma wyjśc błąd
+    Rezerwacje.belongsTo(Sluchacze, { } );
+    Koncerty.hasMany(Rezerwacje, { onDelete: 'CASCADE'});
+    Rezerwacje.belongsTo(Koncerty, { });
+
 
     let wszystkieKoncerty, wszyscySluchacze;
     return sequelize
@@ -16,7 +17,7 @@ module.exports = () => {
         .then( () => {
             return Sluchacze.findAll();
         })
-        .then(sluchacze => {
+        .then(sluchacze => {console.log('asd');
             if( !sluchacze || sluchacze.length == 0 ) {
                 return Sluchacze.bulkCreate([
                     {Imie: 'Jan', Nazwisko: 'Kowalski', Data_dolaczenia: '2020-01-01', Skad_wie_o_koncercie: 'facebook'},
