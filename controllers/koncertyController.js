@@ -17,7 +17,8 @@ exports.showAddKoncertyForm = (req, res, next) => {
         formMode: 'createNew',
         btnLabel: 'Dodaj Koncert',
         formAction: '/koncerty/add',
-        navLocation: 'koncert'
+        navLocation: 'koncert',
+        validationErrors: [],
     });
 }
 
@@ -29,7 +30,8 @@ exports.showEditKoncertyForm = async (req, res, next) => {
         formMode: 'edit',
         btnLabel: 'Edytuj koncert',
         formAction: '/koncerty/edit',
-        navLocation: 'koncert'
+        navLocation: 'koncert',
+        validationErrors: [],
     });
 }
 
@@ -42,6 +44,7 @@ exports.showKoncertyDetails = async (req, res, next) => {
         pageTitle: 'Szczegóły koncertu',
         formAction: '',
         navLocation: 'koncert',
+        validationErrors: [],
     });
 }
 
@@ -51,7 +54,17 @@ exports.addKoncerty = (req, res, next) => {
     KoncertyRepository.createKoncerty(koncertData)
         .then( result => {
             res.redirect('/koncerty');
+        }).catch(err => {console.log(err);
+        res.render('artykul3', {
+            koncert: koncertData,
+            pageTitle: 'Nowy koncert',
+            formMode: 'createNew',
+            btnLabel: 'Nowy koncert',
+            formAction: '/koncerty/add',
+            navLocation: 'koncert',
+            validationErrors: err.errors
         });
+    });
 };
 
 exports.updateKoncerty = (req, res, next) => {
@@ -61,7 +74,17 @@ exports.updateKoncerty = (req, res, next) => {
     KoncertyRepository.updateKoncerty(koncertId, koncertData)
         .then( result => {
             res.redirect('/koncerty');
+        }).catch(err => {
+        res.render('artykul3', {
+            koncert: koncertData,
+            pageTitle: 'Edycja koncertu',
+            formMode: 'edit',
+            btnLabel: 'Edytuj koncert',
+            formAction: '/koncerty/edit',
+            navLocation: 'koncert',
+            validationErrors: err.errors
         });
+    });
 };
 
 exports.deleteKoncerty = (req, res, next) => {

@@ -5,18 +5,28 @@
 
                 <h2><%= pageTitle %></h2>
 
-                <form method="POST"><div id="formularz2">
+                <form method="POST" novalidate onsubmit="return validateForm();">
+                    <div id="formularz2" >
                     Podaj miejsce koncertu: * <input
+                                id="Miejsce_koncertu"
                         name="Miejsce_koncertu"
                         <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                         value="<%= koncert.Miejsce_koncertu %>"
-                        /><br /> <br />
+                        />
+                        <span id="Miejsce_koncertu_error" class="errors-text">
+                            <%= validationErrors.length && validationErrors.find(err => err.path === 'Miejsce_koncertu') ? validationErrors.find(err => err.path === 'Miejsce_koncertu').message : '' %>
+                        </span>
+                        <br /> <br />
                     Podaj datę koncertu: * <input
+                                id="Data_koncertu"
                                 name="Data_koncertu"
                                 type="date"
                                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
-                                value="<%= koncert.Data_koncertu ? koncert.Data_koncertu.toISOString().split('T')[0] : ''  %>"
-                        /><br /> <br />
+                                value="<%= koncert.Data_koncertu instanceof Date ? koncert.Data_koncertu.toISOString().split('T')[0] : koncert.Data_koncertu  %>"
+                        />
+                        <span id="Data_koncertu_error" class="errors-text">
+                            <%= validationErrors.length && validationErrors.find(err => err.path === 'Data_koncertu') ? validationErrors.find(err => err.path === 'Data_koncertu').message : '' %><br /> <br />
+                        </span> <br />
                     Podaj maksymalną ilość osób: <input
                                 type="number"
                                 id="max_ilosc"

@@ -10,11 +10,25 @@ const Koncerty = sequelize.define('Koncerty', {
     },
     Miejsce_koncertu: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: "Pole jest wymagane"
+            },
+            len: {
+                args: [2,60],
+                msg: "Pole powinno zawierać od 2 do 60 znaków"
+            },
+        }
     },
     Data_koncertu: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: "Pole jest wymagane"
+            },
+        }
     },
     Maksymalna_ilosc_miejsc: {
         type: Sequelize.INTEGER,
