@@ -15,6 +15,7 @@
                         />
                         <span id="Miejsce_koncertu_error" class="errors-text">
                             <%= validationErrors.length && validationErrors.find(err => err.path === 'Miejsce_koncertu') ? validationErrors.find(err => err.path === 'Miejsce_koncertu').message : '' %>
+                            <%= validationErrors.length && validationErrors.find(err => err.type === 'unique violation') ? "Podany adres email jest już używany" : '' %>
                         </span>
                         <br /> <br />
                     Podaj datę koncertu: * <input

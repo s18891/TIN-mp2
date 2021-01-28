@@ -54,7 +54,7 @@ exports.addKoncerty = (req, res, next) => {
     KoncertyRepository.createKoncerty(koncertData)
         .then( result => {
             res.redirect('/koncerty');
-        }).catch(err => {console.log(err);
+        }).catch(err => {
         res.render('artykul3', {
             koncert: koncertData,
             pageTitle: 'Nowy koncert',
