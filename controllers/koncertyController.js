@@ -88,7 +88,7 @@ exports.updateKoncerty = (req, res, next) => {
 };
 
 exports.deleteKoncerty = (req, res, next) => {
-    const koncertId = req.params.koncertId;
+    const koncertId = req.params.IdKoncertu;
     KoncertyRepository.deleteKoncerty(koncertId)
         .then( () => {
             res.redirect('/koncerty');
