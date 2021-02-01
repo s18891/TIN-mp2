@@ -53,6 +53,7 @@ exports.addKoncerty = (req, res, next) => {
     const koncertData = { ...req.body };
     KoncertyRepository.createKoncerty(koncertData)
         .then( result => {
+            req.session.flashMessage = 'Dodano nowy rekord';
             res.redirect('/koncerty');
         }).catch(err => {
         res.render('artykul3', {
