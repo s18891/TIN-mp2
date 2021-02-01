@@ -3,12 +3,15 @@ const sequelize = require('./sequelize');
 const Koncerty = require('../../model/sequelize/Koncerty');
 const Rezerwacje = require('../../model/sequelize/Rezerwacje');
 const Sluchacze = require('../../model/sequelize/Sluchacze');
+const User = require('../../model/sequelize/User');
 
 module.exports = () => {
     Sluchacze.hasMany(Rezerwacje, { onDelete: 'CASCADE'}); //klucze obce do poprawy, walidacja pół unikalnych, przy próbie dodania 2 osob o tym samym mailu ma wyjśc błąd
     Rezerwacje.belongsTo(Sluchacze, { } );
     Koncerty.hasMany(Rezerwacje, { onDelete: 'CASCADE'});
     Rezerwacje.belongsTo(Koncerty, { });
+    User.hasMany(Rezerwacje, {onDelete: 'CASCADE'});
+    Rezerwacje.belongsTo(User, {});
 
 
     let wszystkieKoncerty, wszyscySluchacze;
@@ -17,7 +20,7 @@ module.exports = () => {
         .then( () => {
             return Sluchacze.findAll();
         })
-        .then(sluchacze => {console.log('asd');
+        .then(sluchacze => {
             if( !sluchacze || sluchacze.length == 0 ) {
                 return Sluchacze.bulkCreate([
                     {Imie: 'Jan', Nazwisko: 'Kowalski', Data_dolaczenia: '2020-01-01', Skad_wie_o_koncercie: 'facebook'},
@@ -62,5 +65,11 @@ module.exports = () => {
             */} else {
                 return rezerwacje;
             }
-        });
+        })
+      .then(() => {
+          return User.bulkCreate([
+              {login: 'admin', email: 'test@test.test', password: '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', isAdmin: 'true'},
+          ])
+      })
+      ;
 };

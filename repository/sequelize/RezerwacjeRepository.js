@@ -17,6 +17,21 @@ exports.getRezerwacje = () => {
     });
 };
 
+exports.getRezerwacjeByUser = (user) => {
+  return Rezerwacje.findAll({
+    where: {
+      UserId: user._id,
+    },
+    include: [
+      {
+        model: Sluchacze,
+      },
+      {
+        model: Koncerty,
+      }]
+  });
+};
+
 
 exports.getRezerwacjeById = (IdRezerwacji) => {
     return Rezerwacje.findByPk(IdRezerwacji, {include: [

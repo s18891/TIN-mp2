@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -12,6 +13,7 @@ const galeriaRouter = require('./routes/galeriaRoute');
 const historiaRouter = require('./routes/historiaRoute');
 const lokalizacjeKoncertowRouter = require('./routes/lokalizacjeKoncertowRoute');
 const videoRouter = require('./routes/videoRoute');
+const authRouter = require('./routes/auth');
 
 const sequelizeInit = require('./config/sequelize/init');
 sequelizeInit()
@@ -22,6 +24,17 @@ sequelizeInit()
 
 
 var app = express();
+
+app.use(session({
+  secret: 'super mega secret',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(function(req, res, next) {
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,8 +54,7 @@ app.use('/galeria', galeriaRouter);
 app.use('/historia', historiaRouter);
 app.use('/lokalizacjeKoncertow', lokalizacjeKoncertowRouter);
 app.use('/video', videoRouter);
-
-
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,7 +65,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = err;
 
   // render the error page
   res.status(err.status || 500);

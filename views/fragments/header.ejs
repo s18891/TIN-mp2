@@ -64,6 +64,17 @@
     <div id="srodek">
 
         <div id="lewy">
+
+            <h2> Login </h2>
+            <div class="login-box">
+                <p>
+                    <% if (!user)  { %>
+                        <a href="/auth/login">Zaloguj</a> | <a href="/auth/register">Zarejestruj</a>
+                    <% } else { %>
+                        Zalogowany jako <%= user.login %>
+                    <% }%>
+                </p>
+            </div>
             <h2> Muzycy</h2>
             <div class="pilka">
                 <h3>Ozzy Osbourne</h3>

@@ -3,14 +3,16 @@ const KoncertyRepository = require("../repository/sequelize/KoncertyRepository")
 const RezerwacjeRepository = require('../repository/sequelize/RezerwacjeRepository');
 
 
-exports.showRezerwacjeList = (req, res, next) => {
-    RezerwacjeRepository.getRezerwacje()
-        .then(rezerwacja => {
-            res.render('artykul2', {
-                rezerwacja: rezerwacja,
-                navLocation: 'rezerwacja'
-            });
-        });
+exports.showRezerwacjeList = async (req, res, next) => {
+    const user = req.session.user;
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+    const rezerwacje = RezerwacjeRepository.getRezerwacjeByUser(user);
+    return res.render('artykul2', {
+        rezerwacje,
+        navLocation: 'rezerwacja'
+    });
 }
 
 exports.showAddRezerwacjeForm = (req, res, next) => {

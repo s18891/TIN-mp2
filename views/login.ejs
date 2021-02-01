@@ -1,0 +1,25 @@
+<%- include('./fragments/header.ejs') %>
+
+<div id="prawy">
+    <div id="lewy_srodek">
+        <h2>Logowanie</h2>
+
+        <form method="POST">
+            <div>
+                Login: <input type="text" name="login" value="<%= auth.login %>" />
+            </div>
+            <div>
+                Hasło: <input type="password" name="password" />
+            </div>
+            <div>
+                <%= isError ? "Błędne login lub hasło" : "" %>
+            </div>
+            <div>
+                <input type="submit" value="Zaloguj" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    <%- include('./fragments/footer.ejs') %>

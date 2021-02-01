@@ -175,6 +175,14 @@ ol > li {
 	width:160px;
 	border:thin black solid;	
 }
+.login-box {
+	width:180px;
+	border:thin black solid;
+	padding: 10px;
+}
+.login-box a {
+	color: aliceblue;
+}
 .pilka {
 	width:200px;
 	border:thin black solid;

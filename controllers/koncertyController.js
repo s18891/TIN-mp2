@@ -23,7 +23,7 @@ exports.showAddKoncertyForm = (req, res, next) => {
 }
 
 exports.showEditKoncertyForm = async (req, res, next) => {
-    const koncert = await KoncertyRepository.getKoncertyById(req.params.IdKoncertu);console.log(koncert);
+    const koncert = await KoncertyRepository.getKoncertyById(req.params.IdKoncertu);
     return res.render('artykul3', {
         koncert,
         pageTitle: 'Edycja koncertu',

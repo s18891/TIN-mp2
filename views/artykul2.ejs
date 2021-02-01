@@ -21,24 +21,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="tg-0lax">1</td>
-                        <td class="tg-0lax">Adam</td>
-                        <td class="tg-0lax">Nowak</td>
-                        <td class="tg-0lax">Warszawa</td>
-                        <td class="tg-0lax">02.11.2020</td>
-                        <td class="tg-0lax">2</td>
-                        <td class="tg-0lax">Tak</td>
-                        <td class="tg-0lax"> <a href="/rezerwacje/details/1">
-                            <button>Szczegóły</button>
-                        </a></td>
-                        <td class="tg-0lax"> <a href="/rezerwacje/add">
-                            <button>Edytuj</button>
-                        </a></td>
-                        <td class="tg-0lax"><a href="/rezerwacje">
-                            <button>Usuń</button>
-                        </a></td>
-                    </tr>
+                    <% for (let rezerwacja in rezerwacje) { %>
+                        <tr>
+                            <td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
+                            <td class="tg-0lax">Adam</td>
+                            <td class="tg-0lax">Nowak</td>
+                            <td class="tg-0lax">Warszawa</td>
+                            <td class="tg-0lax">02.11.2020</td>
+                            <td class="tg-0lax">2</td>
+                            <td class="tg-0lax">Tak</td>
+                            <td class="tg-0lax"> <a href="/rezerwacje/details/1">
+                                <button>Szczegóły</button>
+                            </a></td>
+                            <td class="tg-0lax"> <a href="/rezerwacje/add">
+                                <button>Edytuj</button>
+                            </a></td>
+                            <td class="tg-0lax"><a href="/rezerwacje">
+                                <button>Usuń</button>
+                            </a></td>
+                        </tr>
+                    <% } %>
                     <tr>
                         <td class="tg-0lax">2</td>
                         <td class="tg-0lax">Maria</td>
