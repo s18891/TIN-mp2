@@ -5,8 +5,9 @@
 				<br id="lewy_srodek">
 				
 					<h2>Nowa Rezerwacja</h2>
-						
-					<form><div id="formularz">
+
+					<form method="POST" novalidate onsubmit="return validateFormRezerwacje();">
+						<div id="formularz">
 						<label for="koncerty">Wybierz koncert:</label>
 						<select id="koncerty" name="koncerty">
 							<% for (let koncert of allKoncerty) { %>

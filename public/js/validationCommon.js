@@ -30,6 +30,38 @@ function validateFormKoncerty() {
   return valid;
 }
 
+function validateFormRezerwacje() {
+  let valid = true;
+  const iloscInput = document.getElementById('ilosc');
+  const komentarzInput = document.getElementById('Komentarz');
+
+  const iloscError = document.getElementById('ilosc_error');
+  const komentarzError = document.getElementById('Komentarz_error');
+
+  resetErrors([iloscInput, komentarzInput], [iloscError, komentarzError]);
+
+  if (!checkRequired(iloscInput.value)) {
+    valid = false;
+    iloscInput.classList.add("error-input");
+    iloscError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(iloscInput.value, 2, 60)) {//////////// zakres zamiast ilość znaków
+    valid = false;
+    iloscInput.classList.add("error-input");
+    iloscError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+  }
+
+  if (!checkRequired(komentarzInput.value)) {
+    valid = false;
+    komentarzInput.classList.add("error-input");
+    komentarzError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(komentarzInput.value, 2, 500)) {
+    valid = false;
+    komentarzInput.classList.add("error-input");
+    komentarzError.innerText = "Pole powinno zawierać od 2 do 500 znaków";
+  }
+  return valid;
+}
+
 function validateFormSluchacze() {
   let valid = true;
   const loginInput = document.getElementById('login');
