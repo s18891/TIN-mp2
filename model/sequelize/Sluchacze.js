@@ -16,10 +16,7 @@ const Sluchacze = sequelize.define('Sluchacze', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    Skad_wie_o_koncercie: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
+
     login: {
         type: Sequelize.STRING,
         allowNull: false,

@@ -54,7 +54,8 @@ exports.createRezerwacje = (data) => {
         Sluchacze_IdSluchacza: data.Sluchacze_IdSluchacza,
         Koncerty_IdKoncertu: data.Koncerty_IdKoncertu,
         Ilosc_osob: data.Ilosc_osob,
-        Czy_przedplata: data.Czy_przedplata
+        Czy_przedplata: data.Czy_przedplata,
+        Skad_wie_o_koncercie: data.Skad_wie_o_koncercie
     });
 };
 

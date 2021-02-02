@@ -38,32 +38,76 @@ function validateFormSluchacze() {
   const nazwiskoInput = document.getElementById('Nazwisko');
   const passwordInput = document.getElementById('password');
 
-  const loginError = document.getElementById('Miejsce_koncertu_error');
-  const emailError = document.getElementById('Data_koncertu_error');
+  const loginError = document.getElementById('login_error');
+  const emailError = document.getElementById('email_error');
+  const imieError = document.getElementById('imie_error');
+  const nazwiskoError = document.getElementById('nazwisko_error');
+  const passwordError = document.getElementById('password_error');
 
-  resetErrors([miejsceKoncertuInput, dataKoncertuInput], [miejsceKoncertuError, dataKoncertuError]);
 
-  if (!checkRequired(miejsceKoncertuInput.value)) {
+  resetErrors([loginInput, emailInput, imieInput, nazwiskoInput, passwordInput], [loginError, emailError, imieError, nazwiskoError, passwordError]);
+
+  if (!checkRequired(loginInput.value)) {
     valid = false;
-    miejsceKoncertuInput.classList.add("error-input");
-    miejsceKoncertuError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(miejsceKoncertuInput.value, 2, 60)) {
+    loginInput.classList.add("error-input");
+    loginError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(loginInput.value, 2, 60)) {
     valid = false;
-    miejsceKoncertuInput.classList.add("error-input");
-    miejsceKoncertuError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+    loginInput.classList.add("error-input");
+    loginError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
   }
 
-  if (!checkRequired(dataKoncertuInput.value)) {
+  if (!checkRequired(emailInput.value)) {
     valid = false;
-    dataKoncertuInput.classList.add("error-input");
-    dataKoncertuError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(miejsceKoncertuInput.value, 2, 60)) {
+    emailInput.classList.add("error-input");
+    emailError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(emailInput.value, 2, 60)) {
     valid = false;
-    dataKoncertuInput.classList.add("error-input");
-    dataKoncertuError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+    emailInput.classList.add("error-input");
+    emailError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
   }
+
+  if (!checkRequired(imieInput.value)) {
+    valid = false;
+    imieInput.classList.add("error-input");
+    imieError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(imieInput.value, 2, 60)) {
+    valid = false;
+    imieInput.classList.add("error-input");
+    imieError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+  }
+
+  if (!checkRequired(nazwiskoInput.value)) {
+    valid = false;
+    nazwiskoInput.classList.add("error-input");
+    nazwiskoError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(nazwiskoInput.value, 2, 60)) {
+    valid = false;
+    nazwiskoInput.classList.add("error-input");
+    nazwiskoError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+  }
+
+  if (!checkRequired(passwordInput.value)) {
+    valid = false;
+    passwordInput.classList.add("error-input");
+    passwordError.innerText = "Pole jest wymagane";
+  } else if (!checkTextLengthRange(passwordInput.value, 5, 60)) {
+    valid = false;
+    passwordInput.classList.add("error-input");
+    passwordError.innerText = "Pole powinno zawierać od 5 do 60 znaków";
+  }
+
+
   return valid;
 }
+
+
+
+
+
+
+
+
 
 function resetErrors(inputs, errorTexts) {
   for(let i=0; i<inputs.length; i++) {

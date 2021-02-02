@@ -23,6 +23,15 @@ const Rezerwacje = sequelize.define('Rezerwacje', {
     Czy_przedplata: {
         type: Sequelize.BOOLEAN,
         allowNull: true
+    },
+
+    Skad_wie_o_koncercie: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    Komentarz: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 
 
