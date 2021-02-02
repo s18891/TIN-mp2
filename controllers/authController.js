@@ -7,6 +7,15 @@ exports.getLogin = async (req, res, next) => {
   });
 }
 
+exports.getLogout = async (req, res, next) => {
+////////////////////////// nie działa
+  req.session.close();
+
+  return res.redirect('/');
+
+
+}
+
 exports.postLogin = async (req, res, next) => {
   const auth = { ...req.body };
   const user = await UserRepository.findUserByLoginAndPassword(auth);

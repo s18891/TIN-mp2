@@ -7,7 +7,7 @@
 
                 <form method="POST" novalidate onsubmit="return validateForm();">
                     <div id="formularz2" >
-                    Podaj miejsce koncertu: * <input
+                    <%= (formMode == 'showDetails') ? 'Miejsce koncertu:' : 'Podaj miejsce koncertu: *' %> <input
                                 id="Miejsce_koncertu"
                         name="Miejsce_koncertu"
                         <%= (formMode == 'showDetails') ? 'disabled' : '' %>
@@ -18,7 +18,7 @@
                             <%= validationErrors.length && validationErrors.find(err => err.type === 'unique violation') ? "Podany adres email jest już używany" : '' %>
                         </span>
                         <br /> <br />
-                    Podaj datę koncertu: * <input
+                    <%= (formMode == 'showDetails') ? 'Data koncertu:' : 'Podaj datę koncertu: *' %> <input
                                 id="Data_koncertu"
                                 name="Data_koncertu"
                                 type="date"
@@ -28,7 +28,7 @@
                         <span id="Data_koncertu_error" class="errors-text">
                             <%= validationErrors.length && validationErrors.find(err => err.path === 'Data_koncertu') ? validationErrors.find(err => err.path === 'Data_koncertu').message : '' %><br /> <br />
                         </span> <br />
-                    Podaj maksymalną ilość osób: <input
+                    <%= (formMode == 'showDetails') ? 'Maksymalna ilość osób:' : 'Podaj maksymalną ilość osób:' %><input
                                 type="number"
                                 id="max_ilosc"
                                 name="Maksymalna_ilosc_miejsc"
@@ -38,7 +38,7 @@
                                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                                 value="<%= koncert.Maksymalna_ilosc_miejsc %>"
                         /><br /> <br />
-                    Podaj czas trwania koncertu: <input
+                    <%= (formMode == 'showDetails') ? 'Czas trwania koncertu:' : 'Podaj czas trwania koncertu:' %><input
                                 type="number"
                                 id="czas_trwania"
                                 name="Czas_trwania_koncertu"

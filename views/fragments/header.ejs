@@ -71,7 +71,7 @@
                     <% if (!user)  { %>
                         <a href="/auth/login">Zaloguj</a> | <a href="/auth/register">Zarejestruj</a>
                     <% } else { %>
-                        Zalogowany jako <%= user.login %>
+                        Zalogowany jako <%= user.login %> <a href="/auth/logout">Wyloguj</a>
                     <% }%>
                 </p>
             </div>
