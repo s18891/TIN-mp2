@@ -5,7 +5,7 @@
 
                 <h2><%= pageTitle %></h2>
 
-                <form method="POST" novalidate onsubmit="return validateForm();">
+                <form method="POST" novalidate onsubmit="return validateFormKoncerty();">
                     <div id="formularz2" >
                     <%= (formMode == 'showDetails') ? 'Miejsce koncertu:' : 'Podaj miejsce koncertu: *' %> <input
                                 id="Miejsce_koncertu"
@@ -15,7 +15,6 @@
                         />
                         <span id="Miejsce_koncertu_error" class="errors-text">
                             <%= validationErrors.length && validationErrors.find(err => err.path === 'Miejsce_koncertu') ? validationErrors.find(err => err.path === 'Miejsce_koncertu').message : '' %>
-                            <%= validationErrors.length && validationErrors.find(err => err.type === 'unique violation') ? "Podany adres email jest już używany" : '' %>
                         </span>
                         <br /> <br />
                     <%= (formMode == 'showDetails') ? 'Data koncertu:' : 'Podaj datę koncertu: *' %> <input

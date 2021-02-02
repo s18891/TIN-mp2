@@ -21,6 +21,9 @@ exports.showRezerwacjeList = async (req, res, next) => {
 }
 
 exports.showAddRezerwacjeForm = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     let allSluchacze, allKoncerty;
     SluchaczeRepository.getSluchacze()
         .then(sluchacze => {

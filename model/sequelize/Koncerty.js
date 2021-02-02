@@ -11,7 +11,7 @@ const Koncerty = sequelize.define('Koncerty', {
     Miejsce_koncertu: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
             notEmpty: {
                 msg: "Pole jest wymagane"
