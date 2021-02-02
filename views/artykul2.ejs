@@ -5,6 +5,7 @@
 
                 <h2>Rezerwacje</h2>
 
+                <% if (rezerwacje.length) { %>
                 <table class="tg">
                     <thead>
                     <tr>
@@ -21,10 +22,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (let rezerwacja in rezerwacje) { %>
+                    <% for (let rezerwacja of rezerwacje) { %>
                         <tr>
                             <td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
-                            <td class="tg-0lax">Adam</td>
+                            <td class="tg-0lax"><%= rezerwacja.Sluchacze.Imie %></td>
                             <td class="tg-0lax">Nowak</td>
                             <td class="tg-0lax">Warszawa</td>
                             <td class="tg-0lax">02.11.2020</td>
@@ -41,26 +42,11 @@
                             </a></td>
                         </tr>
                     <% } %>
-                    <tr>
-                        <td class="tg-0lax">2</td>
-                        <td class="tg-0lax">Maria</td>
-                        <td class="tg-0lax">Dudek</td>
-                        <td class="tg-0lax">Kraków</td>
-                        <td class="tg-0lax">10.11.2020</td>
-                        <td class="tg-0lax">4</td>
-                        <td class="tg-0lax">Nie</td>
-                        <td class="tg-0lax"> <a href="/rezerwacje/details/2">
-                            <button>Szczegóły</button>
-                        </a></td>
-                        <td class="tg-0lax"> <a href="/rezerwacje/add">
-                            <button>Edytuj</button>
-                        </a></td>
-                        <td class="tg-0lax"><a href="/rezerwacje">
-                            <button>Usuń</button>
-                        </a></td>
-                    </tr>
                     </tbody>
                 </table>
+                <% } else { %>
+                    Brak rezerwacji
+                <% } %>
                 </br>
                 <a href="/rezerwacje/add">
                     <button>Nowa rezerwacja</button>

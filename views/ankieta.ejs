@@ -7,15 +7,11 @@
 					<h2>Nowa Rezerwacja</h2>
 						
 					<form><div id="formularz">
-						<label for="osoby">Wybierz osobę:</label>
-						<select id="osoby" name="osoby">
-							<option value="Adam">Adam</option>
-							<option value="Tomasz">Tomasz</option>
-						</select><br /> <br />
 						<label for="koncerty">Wybierz koncert:</label>
 						<select id="koncerty" name="koncerty">
-							<option value="Warszawa">Warszawa</option>
-							<option value="Kraków">Kraków</option>
+							<% for (let koncert of allKoncerty) { %>
+								<option value="<%= koncert._IdKoncertu %>"><%= koncert.Miejsce_koncertu %> - <%= koncert.Data_koncertu.toLocaleString() %></option>
+							<% }%>
 						</select><br /> <br />
 						Podaj ilość osób: * <input type="number" id="ilosc" name="ilosc"
 							   min="1" max="20" placeholder="2"> <br /><br />

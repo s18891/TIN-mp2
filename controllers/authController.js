@@ -1,4 +1,4 @@
-const UserRepository = require('../repository/sequelize/UserRepository');
+const SluchaczeRespository = require('../repository/sequelize/SluchaczeRepository');
 
 exports.getLogin = async (req, res, next) => {
   return res.render('login', {
@@ -8,17 +8,14 @@ exports.getLogin = async (req, res, next) => {
 }
 
 exports.getLogout = async (req, res, next) => {
-////////////////////////// nie działa
-  req.session.close();
+  req.session.user = null;
 
   return res.redirect('/');
-
-
 }
 
 exports.postLogin = async (req, res, next) => {
   const auth = { ...req.body };
-  const user = await UserRepository.findUserByLoginAndPassword(auth);
+  const user = await SluchaczeRespository.findUserByLoginAndPassword(auth);
   if (!user) {
     return res.render('login', {
       auth: auth,
@@ -27,7 +24,7 @@ exports.postLogin = async (req, res, next) => {
   }
   req.session.user = user;
 
-  return res.redirect('/');
+  return res.redirect(req.session.redirectAfterLogin || '/');
 }
 
 exports.getRegister = async (req, res, next) => {
@@ -43,10 +40,11 @@ exports.postRegister = async (req, res, next) => {
     return res.render('register', {validationErrors: [{path: 'password', message: 'Wymagane więcej niż 4 znaki'}], auth: auth});
   }
   try {
-    await UserRepository.createUser({...auth});
+    await SluchaczeRespository.createUser({...auth});
   }  catch (e) {
+    console.log(e.errors)
     return res.render('register', {validationErrors: e.errors, auth: auth});
   }
 
-  return res.render('login');
+  return res.redirect('/auth/login');
 }

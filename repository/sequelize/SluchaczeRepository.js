@@ -1,6 +1,7 @@
 const Sluchacze = require("../../model/sequelize/Sluchacze");
 const Rezerwacje = require("../../model/sequelize/Rezerwacje");
 const Koncerty = require("../../model/sequelize/Koncerty");
+const crypto = require('crypto');
 
 exports.getSluchacze = () => {
     return Sluchacze.findAll();
@@ -41,3 +42,29 @@ exports.deleteSluchacze = (IdSluchacza) => {
     });
 
 };
+
+const hashPassword = (password) => {
+    return crypto.createHash('sha256').update(password, 'utf8').digest().toString('hex');
+}
+
+exports.createUser = (auth) => {
+    const user = { ...auth, isAdmin: false };
+    user.password = hashPassword(user.password);
+    return Sluchacze.create(user);
+};
+
+exports.findUserByLoginAndPassword = (auth) => {
+    const user = { ...auth };
+    user.password = hashPassword(user.password);
+    return Sluchacze.findOne(
+      {
+          where: {
+              login: auth.login,
+              password: hashPassword(auth.password),
+          },
+          include: [{
+              model: Rezerwacje,
+              required: false,
+          }],
+      });
+}

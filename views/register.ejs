@@ -16,6 +16,14 @@
                 <%= validationErrors.length && validationErrors.find(err => err.type === 'Users.email must be unique') ? "Podany email jest już używany" : '' %>
             </div>
             <div>
+                Imie: <input type="text" name="Imie" value="<%= auth.Imie %>" />
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
+            </div>
+            <div>
+                Nazwisko: <input type="text" name="Nazwisko" value="<%= auth.Nazwisko %>" />
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'Nazwisko') ? validationErrors.find(err => err.path === 'Nazwisko').message : '' %>
+            </div>
+            <div>
                 Hasło: <input type="password" name="password" />
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'password') ? validationErrors.find(err => err.path === 'password').message : '' %>
             </div>

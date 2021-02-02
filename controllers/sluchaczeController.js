@@ -11,13 +11,9 @@ exports.showSluchaczeList = (req, res, next) => {
 }
 
 exports.showAddSluchaczeForm = (req, res, next) => {
-    res.render('ankieta3', {
-        sluchacz: {},
-        pageTitle: 'Nowy sluchacz',
-        formMode: 'createNew',
-        btnLabel: 'Dodaj Sluchacza',
-        formAction: '/sluchacze/add',
-        navLocation: 'sluchacz'
+    res.render('register', {
+        auth: {},
+        validationErrors: [],
     });
 }
 
@@ -47,14 +43,18 @@ exports.showSluchaczeDetails = (req, res, next) => {
     }
 
 
-exports.addSluchacze = (req, res, next) => {
-    const sluchaczData = { ...req.body };
-    SluchaczeRepository.createSluchacze(sluchaczData)
-        .then( result => {
-            res.redirect('/sluchacze');
-        });
+exports.addSluchacze = async (req, res, next) => {
+    const auth = { ...req.body };console.log(auth);
+    if (!auth.password || auth.password.length < 5) {
+        return res.render('register', {validationErrors: [{path: 'password', message: 'Wymagane więcej niż 4 znaki'}], auth: auth});
+    }
+    try {
+        await SluchaczeRepository.createUser({...auth});
+    }  catch (e) {
+        return res.render('register', {validationErrors: e.errors, auth: auth});
+    }
 
-
+    return res.redirect('/sluchacze');
 };
 
 exports.updateSluchacze = (req, res, next) => {

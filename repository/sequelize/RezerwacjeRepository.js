@@ -20,7 +20,7 @@ exports.getRezerwacje = () => {
 exports.getRezerwacjeByUser = (user) => {
   return Rezerwacje.findAll({
     where: {
-      UserId: user._id,
+      SluchaczeIdSluchacza: user._IdSluchacza,
     },
     include: [
       {

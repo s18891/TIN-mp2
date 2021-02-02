@@ -29,9 +29,11 @@
                 <ul>
                     <li><a href="/koncerty">Koncerty</a></li>
                     <li><a href="/rezerwacje">Rezerwacje</a></li>
-                    <li><a href="/koncerty/add">Nowy koncert</a></li>
-                    <li><a href="/sluchacze">Osoby</a></li>
-                    <li><a href="/sluchacze/add">Nowa osoba</a></li>
+                    <% if (user && user.isAdmin) { %>
+                        <li><a href="/koncerty/add">Nowy koncert</a></li>
+                        <li><a href="/sluchacze">Osoby</a></li>
+                        <li><a href="/sluchacze/add">Nowa osoba</a></li>
+                    <% } %>
 
                 </ul>
 

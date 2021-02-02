@@ -1,14 +1,19 @@
 const SluchaczeRepository = require("../repository/sequelize/SluchaczeRepository");
 const KoncertyRepository = require("../repository/sequelize/KoncertyRepository");
 const RezerwacjeRepository = require('../repository/sequelize/RezerwacjeRepository');
+const Guard = require('../services/guard');
 
 
 exports.showRezerwacjeList = async (req, res, next) => {
-    const user = req.session.user;
-    if (!user) {
+    if (!Guard.isLoggedIn(req)) {
         return res.redirect('/auth/login');
     }
-    const rezerwacje = RezerwacjeRepository.getRezerwacjeByUser(user);
+    let rezerwacje = [];
+    if (req.session.user.isAdmin) {
+        rezerwacje = await RezerwacjeRepository.getRezerwacje();
+    } else {
+        rezerwacje = await RezerwacjeRepository.getRezerwacjeByUser(req.session.user);
+    }
     return res.render('artykul2', {
         rezerwacje,
         navLocation: 'rezerwacja'
@@ -28,7 +33,7 @@ exports.showAddRezerwacjeForm = (req, res, next) => {
                 rezerwacja: {},
                 formMode: 'createNew',
                 allEmps: allSluchacze,
-                allDepts: allKoncerty,
+                allKoncerty: allKoncerty,
                 pageTitle: 'Nowe rezerwacje',
                 btnLabel: 'Dodaj rezerwacje',
                 formAction: '/rezerwacje/add',
@@ -84,7 +89,8 @@ exports.showRezerwacjeDetails = (req, res, next) => {
 
 
 exports.addRezerwacje = (req, res, next) => {
-    const rezerwacjaData = { ...req.body };
+    const user = req.session.user;
+    const rezerwacjaData = { ...req.body, UserId: user._id };
     RezerwacjeRepository.createRezerwacje(rezerwacjaData)
         .then( result => {
             res.redirect('/rezerwacje');
