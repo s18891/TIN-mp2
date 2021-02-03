@@ -55,6 +55,45 @@
                     <% } %>
 
                 </div></form><br />
+                <h2>
+                    Szczegóły Koncertu
+                </h2>
+                <table class="tg">
+                    <thead>
+                    <tr>
+                        <th class="tg-0lax">Numer rezerwacji</th>
+                        <th class="tg-0lax">Miejsce Koncertu</th>
+                        <th class="tg-0lax">Data koncertu</th>
+                        <th class="tg-0lax">Ilość osób</th>
+                        <th class="tg-0lax">Szczegóły</th>
+                        <th class="tg-0lax">Edytuj</th>
+                        <th class="tg-0lax">Usuń</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for (let rezerwacja of koncert.Rezerwacjes) { %>
+                        <tr>
+                            <td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Sluchacze.Imie %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Sluchacze.Nazwisko %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Ilosc_osob %></td>
+                            <td class="tg-0lax"> <a href="/rezerwacje/details/<%= rezerwacja._IdRezerwacji %>">
+                                    <button>Szczegóły</button>
+                                </a></td>
+                            <td class="tg-0lax"> <a href="/rezerwacje/edit/<%= rezerwacja._IdRezerwacji %>">
+                                    <button>Edytuj</button>
+                                </a></td>
+                            <td class="tg-0lax"><a href="/rezerwacje/delete/<%= rezerwacja._IdRezerwacji %>">
+                                    <button>Usuń</button>
+                                </a></td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+
+
+
+
                 <a href="/koncerty">
                     <button>Powrót do koncertów</button>
                 </a>
