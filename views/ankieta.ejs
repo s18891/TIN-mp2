@@ -9,18 +9,26 @@
 
 					<form method="POST" novalidate onsubmit="return validateFormRezerwacje();">
 						<div id="formularz">
-						<label for="koncerty">Wybierz koncert:</label>
+						<label for="koncerty">Wybierz koncert: * </label>
 						<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> id="koncerty" name="KoncertyIdKoncertu">
 							<% for (let koncert of allKoncerty) { %>
 								<option value="<%= koncert._IdKoncertu %>"><%= koncert.Miejsce_koncertu %> - <%= koncert.Data_koncertu.toLocaleString() %></option>
 							<% }%>
+								<span id="koncerty_error" class="errors-text">
+                					<%= validationErrors.length && validationErrors.find(err => err.path === 'koncerty') ? validationErrors.find(err => err.path === 'koncerty').message : '' %>
+               					 </span>
 						</select><br /> <br />
 
 						Podaj ilość osób: * <input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="number" id="ilosc" name="Ilosc_osob" min="1" max="20" placeholder="2" value="<%=rezerwacja.Ilosc_osob%>"> <br /><br />
-
+							<span id="ilosc_error" class="errors-text">
+                					<%= validationErrors.length && validationErrors.find(err => err.path === 'ilosc') ? validationErrors.find(err => err.path === 'ilosc').message : '' %>
+               					 </span>
 						Czy chcesz dokonać przedpłaty: *
-							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? 'checked' : ''%> name="Czy_przedplata" value="1" />Tak
-							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? '' : 'checked'%> name="Czy_przedplata" value="0" />Nie <br /><br />
+							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? 'checked' : ''%> id="Czy_przedplata" name="Czy_przedplata" value="1" />Tak
+							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? '' : 'checked'%> id="Czy_przedplata" name="Czy_przedplata" value="0" />Nie <br /><br />
+							<span id="ilosc_error" class="errors-text">
+                					<%= validationErrors.length && validationErrors.find(err => err.path === 'Czy_przedplata') ? validationErrors.find(err => err.path === 'Czy_przedplata').message : '' %>
+               					 </span>
 
 						W jaki sposób dowiedziałeś się o koncercie?
 						<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> name="Skad_wie_o_koncercie">

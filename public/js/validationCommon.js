@@ -34,21 +34,35 @@ function validateFormRezerwacje() {
   let valid = true;
   const iloscInput = document.getElementById('ilosc');
   const komentarzInput = document.getElementById('Komentarz');
+  const Czy_przedplataInput = document.getElementById('Czy_przedplata');
+
 
   const iloscError = document.getElementById('ilosc_error');
   const komentarzError = document.getElementById('Komentarz_error');
+  const Czy_przedplataError = document.getElementById('Czy_przedplata');
 
-  resetErrors([iloscInput, komentarzInput], [iloscError, komentarzError]);
+
+
+  resetErrors([iloscInput, komentarzInput, Czy_przedplataInput], [iloscError, komentarzError, Czy_przedplataError]);
 
   if (!checkRequired(iloscInput.value)) {
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(iloscInput.value, 1, 60)) {//////////// zakres zamiast ilość znaków
+  } else if (!checkTextLengthRange(iloscInput.value, 2, 60)) {//////////// zakres zamiast ilość znaków
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
   }
+
+  if (!checkRequired(Czy_przedplataInput.value)) {
+    valid = false;
+    Czy_przedplataInput.classList.add("error-koncerty");
+    Czy_przedplataError.innerText = "Pole jest wymagane";
+  }
+
+
+
 
   if (!checkRequired(komentarzInput.value)) {
     valid = false;
@@ -61,6 +75,8 @@ function validateFormRezerwacje() {
   }
   return valid;
 }
+
+
 
 function validateFormSluchacze() {
   let valid = true;
