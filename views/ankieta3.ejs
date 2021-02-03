@@ -19,8 +19,9 @@
 						<br /><br /><br />
 						<% if (formMode != 'showDetails') { %>
 						<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-						<% } %>
-						<input type="reset" value="Wyczyść dane" />
+							<input type="reset" value="Wyczyść dane" />
+							<% } %>
+
 					</div></form>
 
 					<% if ((formMode == 'showDetails' || formMode == 'edit') && sluchacz.Rezerwacjes.length) { %>

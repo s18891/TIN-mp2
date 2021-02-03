@@ -44,7 +44,7 @@ function validateFormRezerwacje() {
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(iloscInput.value, 2, 60)) {//////////// zakres zamiast ilość znaków
+  } else if (!checkTextLengthRange(iloscInput.value, 1, 60)) {//////////// zakres zamiast ilość znaków
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole powinno zawierać od 2 do 60 znaków";

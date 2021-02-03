@@ -1,6 +1,11 @@
 const SluchaczeRepository = require('../repository/sequelize/SluchaczeRepository');
+const Guard = require('../services/guard');
+
 
 exports.showSluchaczeList = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     SluchaczeRepository.getSluchacze()
         .then(sluchacze => {
             res.render('artykul5', {
@@ -11,6 +16,9 @@ exports.showSluchaczeList = (req, res, next) => {
 }
 
 exports.showAddSluchaczeForm = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     res.render('register', {
         auth: {},
         validationErrors: [],
@@ -18,6 +26,9 @@ exports.showAddSluchaczeForm = (req, res, next) => {
 }
 
 exports.showEditSluchaczeForm = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     return res.render('ankieta3', {
         sluchacz: await SluchaczeRepository.getSluchaczeById(req.params.IdSluchacza),
         pageTitle: 'Edycja sluchacza',
@@ -30,6 +41,9 @@ exports.showEditSluchaczeForm = async (req, res, next) => {
 }
 
 exports.showSluchaczeDetails = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const IdSluchacza = req.params.IdSluchacza;
         SluchaczeRepository.getSluchaczeById(IdSluchacza)
             .then(sluchacz => {
@@ -46,6 +60,9 @@ exports.showSluchaczeDetails = (req, res, next) => {
 
 
 exports.addSluchacze = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const auth = { ...req.body };console.log(auth);
     if (!auth.password || auth.password.length < 5) {
         return res.render('register', {validationErrors: [{path: 'password', message: 'Wymagane więcej niż 4 znaki'}], auth: auth});
@@ -60,6 +77,9 @@ exports.addSluchacze = async (req, res, next) => {
 };
 
 exports.updateSluchacze = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
 
     const sluchaczId = req.params.IdSluchacza;
     const sluchaczData = { ...req.body };
@@ -81,6 +101,9 @@ exports.updateSluchacze = async (req, res, next) => {
 };
 
 exports.deleteSluchacze = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const sluchaczId = req.params.IdSluchacza;
     SluchaczeRepository.deleteSluchacze(sluchaczId)
         .then( () => {

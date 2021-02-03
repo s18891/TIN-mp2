@@ -1,6 +1,9 @@
 const KoncertyRepository = require('../repository/sequelize/KoncertyRepository');
+const Guard = require('../services/guard');
+
 
 exports.showKoncertyList = (req, res, next) => {
+
     KoncertyRepository.getKoncerty()
         .then(koncerty => {
             res.render('artykul1', {
@@ -11,6 +14,9 @@ exports.showKoncertyList = (req, res, next) => {
 }
 
 exports.showAddKoncertyForm = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     res.render('artykul3', {
         koncert: {},
         pageTitle: 'Nowy koncert',
@@ -23,6 +29,9 @@ exports.showAddKoncertyForm = (req, res, next) => {
 }
 
 exports.showEditKoncertyForm = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const koncert = await KoncertyRepository.getKoncertyById(req.params.IdKoncertu);
     return res.render('artykul3', {
         koncert,
@@ -50,6 +59,9 @@ exports.showKoncertyDetails = async (req, res, next) => {
 
 
 exports.addKoncerty = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const koncertData = { ...req.body };
     KoncertyRepository.createKoncerty(koncertData)
         .then( result => {

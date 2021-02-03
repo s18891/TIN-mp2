@@ -47,6 +47,9 @@ exports.showAddRezerwacjeForm = (req, res, next) => {
 }
 
 exports.showEditRezerwacjeForm = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const IdRezerwacji = req.params.IdRezerwacji;
     const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
     return res.render('ankieta', {
@@ -63,6 +66,9 @@ exports.showEditRezerwacjeForm = async (req, res, next) => {
 }
 
 exports.showRezerwacjeDetails = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const IdRezerwacji = req.params.IdRezerwacji;
     const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
     return res.render('ankieta', {
@@ -81,6 +87,9 @@ exports.showRezerwacjeDetails = async (req, res, next) => {
 
 
 exports.addRezerwacje = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const user = req.session.user;
     const rezerwacjaData = { ...req.body, SluchaczeIdSluchacza: user._IdSluchacza };
     RezerwacjeRepository.createRezerwacje(rezerwacjaData)
@@ -92,6 +101,9 @@ exports.addRezerwacje = (req, res, next) => {
 };
 
 exports.updateRezerwacje = async (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const IdRezerwacji = req.params.IdRezerwacji;
     const rezerwacjaData = { ...req.body };
     let errors = [];
@@ -115,6 +127,9 @@ exports.updateRezerwacje = async (req, res, next) => {
 };
 
 exports.deleteRezerwacje = (req, res, next) => {
+    if (!Guard.isLoggedIn(req)) {
+        return res.redirect('/auth/login');
+    }
     const rezerwacjaId = req.params.IdRezerwacji;
     RezerwacjeRepository.deleteRezerwacje(rezerwacjaId)
         .then( () => {
