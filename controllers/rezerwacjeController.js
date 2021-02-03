@@ -86,18 +86,28 @@ exports.showRezerwacjeDetails = async (req, res, next) => {
 
 
 
-exports.addRezerwacje = (req, res, next) => {
+exports.addRezerwacje = async (req, res, next) => {
     if (!Guard.isLoggedIn(req)) {
         return res.redirect('/auth/login');
     }
     const user = req.session.user;
     const rezerwacjaData = { ...req.body, SluchaczeIdSluchacza: user._IdSluchacza };
-    RezerwacjeRepository.createRezerwacje(rezerwacjaData)
-        .then( result => {
-            res.redirect('/rezerwacje');
+    try {
+        await RezerwacjeRepository.createRezerwacje(rezerwacjaData);
+    } catch(e) {
+        return res.render('ankieta', {
+            rezerwacja: rezerwacjaData,
+            formMode: 'edit',
+            allSluchacze: await SluchaczeRepository.getSluchacze(),
+            allKoncerty: await KoncertyRepository.getKoncerty(),
+            pageTitle: 'Edycja rezerwacje',
+            btnLabel: 'Edytuj rezerwacje',
+            formAction: '/rezerwacje/edit',
+            navLocation: 'rezerwacja',
+            validationErrors: e.errors,
         });
-
-
+    }
+    return res.redirect('/rezerwacje');
 };
 
 exports.updateRezerwacje = async (req, res, next) => {

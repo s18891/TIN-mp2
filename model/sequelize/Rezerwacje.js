@@ -18,7 +18,12 @@ const Rezerwacje = sequelize.define('Rezerwacje', {
     },
     Ilosc_osob: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: "Pole jest wymagane"
+            },
+        }
     },
     Czy_przedplata: {
         type: Sequelize.BOOLEAN,
