@@ -6,65 +6,61 @@
 					<script type="application/javascript" src="/js/validationEmpForm.js"></script>
 					<h2><%= pageTitle %></h2>
 
-					<form class="form" method="post" action="<%=formAction%>"
-						  novalidate onsubmit="return validateForm();"><div id="formularz">
-							<input type="hidden" name="_id" value="<%= emp._id %>">
+					<form class="form" method="post" novalidate ><div id="formularz">
+							<input type="hidden" name="_id" value="<%= sluchacz._IdSluchacza %>">
 
 
 							Podaj swoje imię: * <input type="text" name="Imie" id="Imie" placeholder="2-60 znaków" value="<%= sluchacz.Imie %>"
 									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
 						Podaj swoje nazwisko: * <input type="text" name="Nazwisko" id="Nazwisko" placeholder="2-60 znaków" value="<%= sluchacz.Nazwisko %>"
 									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
-						Podaj date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" placeholder="np. 2020-01-01" value="<%= sluchacz.Data_dolaczenia %>"
-									<%= (formMode == 'showDetails') ? 'disabled' : '' %> /><br /> <br />
-							Skad wiesz o koncercie: * 	<input type="text" name="Skad_wie_o_koncercie" id="Skad_wie_o_koncercie" placeholder="2-60 znaków" value="<%= sluchacz.Skad_wie_o_koncercie %>"
-									<%= (formMode == 'showDetails') ? 'disabled' : '' %> /><br /> <br />
+						Podaj date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" value="<%= sluchacz.createdAt.toLocaleString() %>" disabled/><br /> <br />
 
 						<br /><br /><br />
-							<% if (formMode == 'showDetails') { %>
-								<div class="section-buttons">
-									<a href="/sluchacze/edit/<%= sluchacz._IdSluchacza %>" class="button-edit">Edytuj</a>
-								</div>
-							<% } %>
-						<input type="submit" value="Dodaj osobę" />
+						<% if (formMode != 'showDetails') { %>
+						<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+						<% } %>
 						<input type="reset" value="Wyczyść dane" />
 					</div></form>
 
-					<% if (formMode == 'showDetails' || formMode == 'edit') { %>
+					<% if ((formMode == 'showDetails' || formMode == 'edit') && sluchacz.Rezerwacjes.length) { %>
 						<h2>
 							Szczegóły Rezerwacji
 						</h2>
-						<table class="table-list">
+						<table class="tg">
 							<thead>
 							<tr>
-								<th>Ilosc osob</th>
-								<th>Czy_przedplata</th>
-
+								<th class="tg-0lax">Numer rezerwacji</th>
+								<th class="tg-0lax">Miejsce Koncertu</th>
+								<th class="tg-0lax">Data koncertu</th>
+								<th class="tg-0lax">Ilość osób</th>
+								<th class="tg-0lax">Szczegóły</th>
+								<th class="tg-0lax">Edytuj</th>
+								<th class="tg-0lax">Usuń</th>
 							</tr>
 							</thead>
 							<tbody>
-							<% for (let s of sluchacz.sluchacze) { %>
+							<% for (let rezerwacja of sluchacz.Rezerwacjes) { %>
 								<tr>
-									<td><%= s.Ilosc_osob %></td>
-									<td><%= s.Czy_przedplata %></td>
-
+									<td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
+									<td class="tg-0lax"><%= rezerwacja.Koncerty.Miejsce_koncertu %></td>
+									<td class="tg-0lax"><%= rezerwacja.Koncerty.Data_koncertu.toLocaleString() %></td>
+									<td class="tg-0lax"><%= rezerwacja.Ilosc_osob %></td>
+									<td class="tg-0lax"> <a href="/rezerwacje/details/<%= rezerwacja._IdRezerwacji %>">
+											<button>Szczegóły</button>
+										</a></td>
+									<td class="tg-0lax"> <a href="/rezerwacje/edit/<%= rezerwacja._IdRezerwacji %>">
+											<button>Edytuj</button>
+										</a></td>
+									<td class="tg-0lax"><a href="/rezerwacje/delete/<%= rezerwacja._IdRezerwacji %>">
+											<button>Usuń</button>
+										</a></td>
 								</tr>
 							<% } %>
 							</tbody>
 						</table>
 					<% } %>
 
-
-
-					<div class="form-buttons">
-						<p id="errorsSummary" class="errors-text"></p>
-						<% if (formMode != 'showDetails') { %>
-						<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-						<a class="form-button-cancel" href="/sluchacze">Anuluj</a>
-						<% } else { %>
-							<a class="form-button-cancel" href="/sluchacze">Powrót</a>
-						<% } %>
-					</div>
 					<a href="/sluchacze">
 						<button>Powrót listy osób</button>
 					</a>

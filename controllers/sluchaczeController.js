@@ -17,14 +17,15 @@ exports.showAddSluchaczeForm = (req, res, next) => {
     });
 }
 
-exports.showEditSluchaczeForm = (req, res, next) => {
-    res.render('ankieta3', {
-        sluchacz: sluchacz,
+exports.showEditSluchaczeForm = async (req, res, next) => {
+    return res.render('ankieta3', {
+        sluchacz: await SluchaczeRepository.getSluchaczeById(req.params.IdSluchacza),
         pageTitle: 'Edycja sluchacza',
         formMode: 'edit',
         btnLabel: 'Edytuj sluchacza',
         formAction: '/sluchacze/edit',
-        navLocation: 'sluchacz'
+        navLocation: 'sluchacz',
+        validationErrors: [],
     });
 }
 
@@ -37,7 +38,8 @@ exports.showSluchaczeDetails = (req, res, next) => {
                     formMode: 'showDetails',
                     pageTitle: 'Szczegóły sluchacza',
                     formAction: '',
-                    navLocation: 'sluchacz'
+                    navLocation: 'sluchacz',
+                    validationErrors: [],
                 });
             });
     }
@@ -57,18 +59,29 @@ exports.addSluchacze = async (req, res, next) => {
     return res.redirect('/sluchacze');
 };
 
-exports.updateSluchacze = (req, res, next) => {
+exports.updateSluchacze = async (req, res, next) => {
 
-    const sluchaczId = req.body._idSluchacza;
+    const sluchaczId = req.params.IdSluchacza;
     const sluchaczData = { ...req.body };
-    SluchaczeRepository.updateSluchacze(sluchaczId, sluchaczData)
-        .then( result => {
-            res.redirect('/sluchacze');
+    try {
+        await SluchaczeRepository.updateSluchacze(sluchaczId, sluchaczData)
+    } catch (e) {
+        return res.render('ankieta3', {
+            sluchacz: await SluchaczeRepository.getSluchaczeById(req.params.IdSluchacza),
+            pageTitle: 'Edycja sluchacza',
+            formMode: 'edit',
+            btnLabel: 'Edytuj sluchacza',
+            formAction: '/sluchacze/edit',
+            navLocation: 'sluchacz',
+            validationErrors: e.errors,
         });
+    }
+
+    return res.redirect('/sluchacze');
 };
 
 exports.deleteSluchacze = (req, res, next) => {
-    const sluchaczId = req.params.sluchaczId;
+    const sluchaczId = req.params.IdSluchacza;
     SluchaczeRepository.deleteSluchacze(sluchaczId)
         .then( () => {
             res.redirect('/sluchacze');

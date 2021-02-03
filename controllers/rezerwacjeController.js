@@ -40,60 +40,49 @@ exports.showAddRezerwacjeForm = (req, res, next) => {
                 pageTitle: 'Nowe rezerwacje',
                 btnLabel: 'Dodaj rezerwacje',
                 formAction: '/rezerwacje/add',
-                navLocation: 'rezerwacja'
+                navLocation: 'rezerwacja',
+                validationErrors: [],
             });
         });
 }
 
-exports.showEditRezerwacjeForm = (req, res, next) => {
-    let allSluchacze, allKoncerty;
-    SluchaczeRepository.getSluchacze()
-        .then(sluchacze => {
-            allSluchacze = sluchacze;
-            return KoncertyRepository.getKoncerty();
-        })
-        .then(koncerty => {
-            allKoncerty = koncerty;
-            res.render('ankieta', {
-                rezerwacja: rezerwacja,
-                formMode: 'edit',
-                allEmps: allSluchacze,
-                allDepts: allKoncerty,
-                pageTitle: 'Edycja rezerwacje',
-                btnLabel: 'Edytuj rezerwacje',
-                formAction: '/rezerwacje/edit',
-                navLocation: 'rezerwacja'
-            });
-        });
-}
-
-exports.showRezerwacjeDetails = (req, res, next) => {
+exports.showEditRezerwacjeForm = async (req, res, next) => {
     const IdRezerwacji = req.params.IdRezerwacji;
-    let allSluchacze, allKoncerty;
-    SluchaczeRepository.getSluchacze()
-        .then(sluchacze => {
-            allSluchacze = sluchacze;
-            return KoncertyRepository.getKoncerty();
-        }).then(RezerwacjeRepository.getRezerwacjeById(IdRezerwacji))
-        .then(koncerty => {
-            allKoncerty = koncerty;
-            res.render('ankieta', {
-                rezerwacja: rezerwacja,
-                formMode: 'showDetails',
-                allEmps: allSluchacze,
-                allDepts: allKoncerty,
-                pageTitle: 'Szczegóły rezerwacji',
-                formAction: '',
-                navLocation: 'rezerwacja'
-            });
-        });
+    const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
+    return res.render('ankieta', {
+        rezerwacja: rezerwacja,
+        formMode: 'edit',
+        allSluchacze: await SluchaczeRepository.getSluchacze(),
+        allKoncerty: await KoncertyRepository.getKoncerty(),
+        pageTitle: 'Edycja rezerwacje',
+        btnLabel: 'Edytuj rezerwacje',
+        formAction: '/rezerwacje/edit',
+        navLocation: 'rezerwacja',
+        validationErrors: [],
+    });
+}
+
+exports.showRezerwacjeDetails = async (req, res, next) => {
+    const IdRezerwacji = req.params.IdRezerwacji;
+    const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
+    return res.render('ankieta', {
+        rezerwacja: rezerwacja,
+        formMode: 'showDetails',
+        allSluchacze: await SluchaczeRepository.getSluchacze(),
+        allKoncerty: await KoncertyRepository.getKoncerty(),
+        pageTitle: 'Szczegóły rezerwacji',
+        btnLabel: 'Edytuj rezerwacje',
+        formAction: '/rezerwacje/edit',
+        navLocation: 'rezerwacja',
+        validationErrors: [],
+    });
 }
 
 
 
 exports.addRezerwacje = (req, res, next) => {
     const user = req.session.user;
-    const rezerwacjaData = { ...req.body, UserId: user._id };
+    const rezerwacjaData = { ...req.body, SluchaczeIdSluchacza: user._IdSluchacza };
     RezerwacjeRepository.createRezerwacje(rezerwacjaData)
         .then( result => {
             res.redirect('/rezerwacje');
@@ -102,19 +91,32 @@ exports.addRezerwacje = (req, res, next) => {
 
 };
 
-exports.updateRezerwacje = (req, res, next) => {
-
-    const rezerwacjaId = req.body._idRezerwacji;
+exports.updateRezerwacje = async (req, res, next) => {
+    const IdRezerwacji = req.params.IdRezerwacji;
     const rezerwacjaData = { ...req.body };
-    RezerwacjeRepository.updateRezerwacje(rezerwacjaId, rezerwacjaData)
-        .then( result => {
-            res.redirect('/rezerwacje');
+    let errors = [];
+    try {
+        await RezerwacjeRepository.updateRezerwacje(IdRezerwacji, rezerwacjaData);
+    } catch (e) {
+        errors = e.errors
+        return res.render('ankieta', {
+            rezerwacja: rezerwacjaData,
+            formMode: 'edit',
+            allSluchacze: await SluchaczeRepository.getSluchacze(),
+            allKoncerty: await KoncertyRepository.getKoncerty(),
+            pageTitle: 'Edycja rezerwacje',
+            btnLabel: 'Edytuj rezerwacje',
+            formAction: '/rezerwacje/edit',
+            navLocation: 'rezerwacja',
+            validationErrors: errors,
         });
+    }
+    return res.redirect('/rezerwacje')
 };
 
 exports.deleteRezerwacje = (req, res, next) => {
-    const rezerwacjaId = req.params.rezerwacjaId;
-    RezerwacjeRepository.deleteKoncerty(rezerwacjaId)
+    const rezerwacjaId = req.params.IdRezerwacji;
+    RezerwacjeRepository.deleteRezerwacje(rezerwacjaId)
         .then( () => {
             res.redirect('/rezerwacje');
         });

@@ -25,17 +25,17 @@
                         <tr>
                             <td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
                             <td class="tg-0lax"><%= rezerwacja.Sluchacze.Imie %></td>
-                            <td class="tg-0lax">Nowak</td>
-                            <td class="tg-0lax">Warszawa</td>
-                            <td class="tg-0lax">02.11.2020</td>
-                            <td class="tg-0lax">2</td>
-                            <td class="tg-0lax"> <a href="/rezerwacje/details/1">
+                            <td class="tg-0lax"><%= rezerwacja.Sluchacze.Nazwisko %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Koncerty.Miejsce_koncertu %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Koncerty.Data_koncertu.toLocaleString() %></td>
+                            <td class="tg-0lax"><%= rezerwacja.Ilosc_osob %></td>
+                            <td class="tg-0lax"> <a href="/rezerwacje/details/<%= rezerwacja._IdRezerwacji %>">
                                 <button>Szczegóły</button>
                             </a></td>
-                            <td class="tg-0lax"> <a href="/rezerwacje/add">
+                            <td class="tg-0lax"> <a href="/rezerwacje/edit/<%= rezerwacja._IdRezerwacji %>">
                                 <button>Edytuj</button>
                             </a></td>
-                            <td class="tg-0lax"><a href="/rezerwacje">
+                            <td class="tg-0lax"><a href="/rezerwacje/delete/<%= rezerwacja._IdRezerwacji %>">
                                 <button>Usuń</button>
                             </a></td>
                         </tr>

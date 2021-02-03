@@ -48,15 +48,7 @@ exports.getRezerwacjeById = (IdRezerwacji) => {
 
 
 exports.createRezerwacje = (data) => {
-    console.log(JSON.stringify(data));
-
-    return Rezerwacje.create({
-        Sluchacze_IdSluchacza: data.Sluchacze_IdSluchacza,
-        Koncerty_IdKoncertu: data.Koncerty_IdKoncertu,
-        Ilosc_osob: data.Ilosc_osob,
-        Czy_przedplata: data.Czy_przedplata,
-        Skad_wie_o_koncercie: data.Skad_wie_o_koncercie
-    });
+    return Rezerwacje.create(data);
 };
 
 exports.updateRezerwacje = (IdRezerwacji, data) => {

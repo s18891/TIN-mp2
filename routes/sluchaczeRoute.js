@@ -7,7 +7,7 @@ router.get('/edit/:IdSluchacza', sluchaczeController.showEditSluchaczeForm);
 router.get('/details/:IdSluchacza', sluchaczeController.showSluchaczeDetails);
 
 router.post('/add', sluchaczeController.addSluchacze);
-router.post('/edit', sluchaczeController.updateSluchacze);
+router.post('/edit/:IdSluchacza', sluchaczeController.updateSluchacze);
 router.get('/delete/:IdSluchacza', sluchaczeController.deleteSluchacze);
 
 

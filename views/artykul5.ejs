@@ -17,35 +17,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (let sluchacz of sluchacze){ %>
-                    <tr>
-                        <td class="tg-0lax"><%= sluchacz.Imie %></td>
-                        <td class="tg-0lax"><%= sluchacz.Nazwisko %></td>
-                        <td class="tg-0lax"> <a href="/sluchacze/details/<%=sluchacz._IdSluchacza%>">
-                            <button>Szczegóły</button>
-                        </a></td>
-                        <td class="tg-0lax"> <a href="/sluchacze/edit/<%=sluchacz._IdSluchacza%>">
-                            <button>Edytuj</button>
-                        </a></td>
-                        <td class="tg-0lax"><a href="/sluchacze/delete/<%=sluchacz._IdSluchacza%>">
-                            <button>Usuń</button>
-                        </a></td>
+                        <% for (let sluchacz of sluchacze){ %>
+                            <tr>
+                                <td class="tg-0lax"><%= sluchacz.Imie %></td>
+                                <td class="tg-0lax"><%= sluchacz.Nazwisko %></td>
+                                <td class="tg-0lax"> <a href="/sluchacze/details/<%=sluchacz._IdSluchacza%>">
+                                    <button>Szczegóły</button>
+                                </a></td>
+                                <td class="tg-0lax"> <a href="/sluchacze/edit/<%=sluchacz._IdSluchacza%>">
+                                    <button>Edytuj</button>
+                                </a></td>
+                                <td class="tg-0lax"><a href="/sluchacze/delete/<%=sluchacz._IdSluchacza%>">
+                                    <button>Usuń</button>
+                                </a></td>
 
-                    </tr>
-                    <% } %>
-
-                    <tr>
-                        <td class="tg-0lax">Martyna</td>
-                        <td class="tg-0lax">Wójcik</td>
-                        <td class="tg-0lax"> <a href="/sluchacze/details/1">
-                            <button>Szczegóły</button>
-                        </a></td>
-                        <td class="tg-0lax"> <a href="/sluchacze/add">
-                            <button>Edytuj</button>
-                        </a></td>
-                        <td class="tg-0lax"><a href="/sluchacze">
-                            <button>Usuń</button>
-                        </a></td>                   </tr>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
                 </br>

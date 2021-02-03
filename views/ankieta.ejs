@@ -4,36 +4,37 @@
 <div id="prawy">
 				<div id="lewy_srodek">
 				
-					<h2>Nowa Rezerwacja</h2>
+					<h2><%= pageTitle %></h2>
 					<br>
 
 					<form method="POST" novalidate onsubmit="return validateFormRezerwacje();">
 						<div id="formularz">
 						<label for="koncerty">Wybierz koncert:</label>
-						<select id="koncerty" name="koncerty">
+						<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> id="koncerty" name="KoncertyIdKoncertu">
 							<% for (let koncert of allKoncerty) { %>
 								<option value="<%= koncert._IdKoncertu %>"><%= koncert.Miejsce_koncertu %> - <%= koncert.Data_koncertu.toLocaleString() %></option>
 							<% }%>
 						</select><br /> <br />
-						Podaj ilość osób: * <input type="number" id="ilosc" name="ilosc"
-							   min="1" max="20" placeholder="2"> <br /><br />
+
+						Podaj ilość osób: * <input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="number" id="ilosc" name="Ilosc_osob" min="1" max="20" placeholder="2" value="<%=rezerwacja.Ilosc_osob%>"> <br /><br />
+
 						Czy chcesz dokonać przedpłaty: *
-							<input type="radio" name="przedpłata" value="1" />Tak
-							<input type="radio" name="przedpłata" value="0" />Nie <br /><br />
+							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? 'checked' : ''%> name="Czy_przedplata" value="1" />Tak
+							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? '' : 'checked'%> name="Czy_przedplata" value="0" />Nie <br /><br />
 
 						W jaki sposób dowiedziałeś się o koncercie?
-						<select name="Przeglądarka">
-							<option selected="selected">Facebook</option>
-							<option>Radio</option>
-							<option>Od znajomych</option>
-							<option>Plakat</option>
-							<option>Inna</option>
+						<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> name="Skad_wie_o_koncercie">
+							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Facebook' ? 'selected' : ''%>>Facebook</option>
+							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Radio' ? 'selected' : ''%>>Radio</option>
+							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Od znajomych' ? 'selected' : ''%>>Od znajomych</option>
+							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Plakat' ? 'selected' : ''%>>Plakat</option>
+							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Inna' ? 'selected' : ''%>>Inna</option>
 						</select>
 							<p>Dodatkowe informacje:</p>
-							<textarea name="Komentarz" cols="50" rows="10">Tutaj można wpisać dodatkowe informacje dotyczące rezerwacji...</textarea>
+							<textarea <%= (formMode == 'showDetails') ? 'disabled' : '' %> name="Komentarz" cols="50" rows="10"><%= rezerwacja.Komentarz %></textarea>
 						<br /><br />
-						<input type="submit" value="Dodaj rezerwacje" />
-						<input type="reset" value="Wyczyść dane" />
+						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="submit" value="Dodaj rezerwacje" />
+						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="reset" value="Wyczyść dane" />
 					</div></form>
 				</br>
 					<a href="/rezerwacje">

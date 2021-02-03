@@ -8,7 +8,7 @@ router.get('/details/:IdRezerwacji', rezerwacjeController.showRezerwacjeDetails)
 
 
 router.post('/add', rezerwacjeController.addRezerwacje);
-router.post('/edit', rezerwacjeController.updateRezerwacje);
+router.post('/edit/:IdRezerwacji', rezerwacjeController.updateRezerwacje);
 router.get('/delete/:IdRezerwacji', rezerwacjeController.deleteRezerwacje);
 
 
