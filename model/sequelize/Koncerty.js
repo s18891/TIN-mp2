@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize/sequelize');
-
+const Instant = require("moment");
+console.log(Instant.now().toString().substring(0, 10));
 const Koncerty = sequelize.define('Koncerty', {
     _IdKoncertu: {
         type: Sequelize.INTEGER,
@@ -26,6 +27,7 @@ const Koncerty = sequelize.define('Koncerty', {
         type: Sequelize.DATE,
         allowNull: false,
         validate: {
+            isAfter: new Date().toISOString() ,
             notEmpty: {
                 msg: "Pole jest wymagane"
             },

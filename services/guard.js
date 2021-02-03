@@ -1,6 +1,7 @@
 const SluchaczeRespository = require("../repository/sequelize/SluchaczeRepository");
+
 exports.isLoggedIn = (req) => {
-  console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w guars.js")
+  console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w guard.js     ")
   const user = req.session.user;
   if (!user) {
     req.session.redirectAfterLogin = req.originalUrl;
@@ -10,7 +11,7 @@ exports.isLoggedIn = (req) => {
 }
 ///UWAGA metoda zawiera podatność podszycia się pod admina
 exports.isAdmin = (req) => {
-  console.log("WEJŚCIE W SPRAWDZENIE ADMINA w guars.js")
+  console.log("WEJŚCIE W SPRAWDZENIE ADMINA w guard.js")
   const user = req.session.user;
   console.log( JSON.stringify(user));
   if ( JSON.stringify(user).includes(',"isAdmin":true,')){

@@ -78,19 +78,37 @@ exports.showEditRezerwacjeForm = async (req, res, next) => {
     if (!Guard.isLoggedIn(req)) {
         return res.redirect('/auth/login');
     }
-    const IdRezerwacji = req.params.IdRezerwacji;
-    const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
-    return res.render('ankieta', {
-        rezerwacja: rezerwacja,
-        formMode: 'edit',
-        allSluchacze: await SluchaczeRepository.getSluchacze(),
-        allKoncerty: await KoncertyRepository.getKoncerty(),
-        pageTitle: 'Edycja rezerwacje',
-        btnLabel: 'Edytuj rezerwacje',
-        formAction: '/rezerwacje/edit',
-        navLocation: 'rezerwacja',
-        validationErrors: [],
-    });
+    if (!Guard.isAdmin(req)) {
+
+        const IdRezerwacji = req.params.IdRezerwacji;
+        const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
+        return res.render('ankieta', {
+            rezerwacja: rezerwacja,
+            formMode: 'edit',
+            allSluchacze: await SluchaczeRepository.getSluchacze(),
+            allKoncerty: await KoncertyRepository.getKoncerty(),
+            pageTitle: 'Edycja rezerwacje',
+            btnLabel: 'Edytuj rezerwacje',
+            formAction: '/rezerwacje/edit',
+            navLocation: 'rezerwacja',
+            validationErrors: [],
+        });
+    } else {
+        const IdRezerwacji = req.params.IdRezerwacji;
+        const rezerwacja = await RezerwacjeRepository.getRezerwacjeById(IdRezerwacji)
+        return res.render('ankieta', {
+            rezerwacja: rezerwacja,
+            formMode: 'editAsAdmin',
+            allSluchacze: await SluchaczeRepository.getSluchacze(),
+            allKoncerty: await KoncertyRepository.getKoncerty(),
+            pageTitle: 'Edycja rezerwacje',
+            btnLabel: 'Edytuj rezerwacje',
+            formAction: '/rezerwacje/edit',
+            navLocation: 'rezerwacja',
+            validationErrors: [],
+        });
+
+    }
 }
 
 exports.showRezerwacjeDetails = async (req, res, next) => {
