@@ -22,28 +22,56 @@ exports.showRezerwacjeList = async (req, res, next) => {
 
 exports.showAddRezerwacjeForm = (req, res, next) => {
     if (!Guard.isLoggedIn(req)) {
+        console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w controller.js")
+
         return res.redirect('/auth/login');
     }
-    let allSluchacze, allKoncerty;
-    SluchaczeRepository.getSluchacze()
-        .then(sluchacze => {
-            allSluchacze = sluchacze;
-            return KoncertyRepository.getKoncerty();
-        })
-        .then(koncerty => {
-            allKoncerty = koncerty;
-            res.render('ankieta', {
-                rezerwacja: {},
-                formMode: 'createNew',
-                allEmps: allSluchacze,
-                allKoncerty: allKoncerty,
-                pageTitle: 'Nowe rezerwacje',
-                btnLabel: 'Dodaj rezerwacje',
-                formAction: '/rezerwacje/add',
-                navLocation: 'rezerwacja',
-                validationErrors: [],
+    if (!Guard.isAdmin(req)) {
+        console.log("WEJŚCIE W SPRAWDZENIE Admina w controller.js")
+
+        let allSluchacze, allKoncerty;
+        SluchaczeRepository.getSluchacze()
+            .then(sluchacze => {
+                allSluchacze = sluchacze;
+                return KoncertyRepository.getKoncerty();
+            })
+            .then(koncerty => {
+                allKoncerty = koncerty;
+                res.render('ankieta', {
+                    rezerwacja: {},
+                    formMode: 'createNew',
+                    allSluchacze: allSluchacze,
+                    allKoncerty: allKoncerty,
+                    pageTitle: 'Nowe rezerwacje',
+                    btnLabel: 'Dodaj rezerwacje',
+                    formAction: '/rezerwacje/add',
+                    navLocation: 'rezerwacja',
+                    validationErrors: [],
+                });
             });
-        });
+    }else {
+
+        let allSluchacze, allKoncerty;
+        SluchaczeRepository.getSluchacze()
+            .then(sluchacze => {
+                allSluchacze = sluchacze;
+                return KoncertyRepository.getKoncerty();
+            })
+            .then(koncerty => {
+                allKoncerty = koncerty;
+                res.render('ankieta', {
+                    rezerwacja: {},
+                    formMode: 'createNewAsAdmin',
+                    allSluchacze: allSluchacze,
+                    allKoncerty: allKoncerty,
+                    pageTitle: 'Nowe rezerwacjeADMIN',
+                    btnLabel: 'Dodaj rezerwacje',
+                    formAction: '/rezerwacje/add',
+                    navLocation: 'rezerwacja',
+                    validationErrors: [],
+                });
+            });
+    }
 }
 
 exports.showEditRezerwacjeForm = async (req, res, next) => {
@@ -146,23 +174,3 @@ exports.deleteRezerwacje = (req, res, next) => {
             res.redirect('/rezerwacje');
         });
 };
-
-
-
-
-
-
-
-
-
-exports.showReservationsList = (req, res, next) => {
-    res.render('artykul2', {});
-}
-
-exports.showReservationsForm = (req, res, next) => {
-    res.render('ankieta', {});
-}
-
-exports.showReservationsDetails = (req, res, next) => {
-    res.render('ankieta1', {});
-}

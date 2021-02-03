@@ -54,6 +54,8 @@ exports.createUser = (auth) => {
 };
 
 exports.findUserByLoginAndPassword = (auth) => {
+    console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w repo.js")
+
     const user = { ...auth };
     user.password = hashPassword(user.password);
     return Sluchacze.findOne(
@@ -67,4 +69,24 @@ exports.findUserByLoginAndPassword = (auth) => {
               required: false,
           }],
       });
+}
+
+exports.isAdmin = (auth) => {
+    console.log("WEJŚCIE W SPRAWDZENIE ADMINA w repo.js")
+
+    const user = { ...auth };
+
+    user.password = hashPassword(user.password);
+    return Sluchacze.findOne(
+        {
+            where: {
+                login: auth.login,
+                password: hashPassword(auth.password),
+                isAdmin : true,
+            },
+            include: [{
+                model: Rezerwacje,
+                required: false,
+            }],
+        });
 }
