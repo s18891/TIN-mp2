@@ -9,15 +9,27 @@
 
 					<form method="POST" novalidate onsubmit="return validateFormRezerwacje();">
 						<div id="formularz">
+							<% if (formMode == 'createNewAsAdmin' ) { %>
+
+							<label for="sluchacze">Wybierz sluchacza: * </label>
+							<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> id="sluchacze" name="SluchaczeIdSluchacza">
+								<% for (let sluchacz of allSluchacze) { %>
+									<option value="<%= sluchacz._IdSluchacza %>"><%= sluchacz.Imie %> - <%= sluchacz.Nazwisko %> - <%= sluchacz.login %></option>
+								<% }%>
+
+							</select>
+								<br />
+								<%}%>
+
 						<label for="koncerty">Wybierz koncert: * </label>
-						<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> id="koncerty" name="KoncertyIdKoncertu">
-							<% for (let koncert of allKoncerty) { %>
-								<option value="<%= koncert._IdKoncertu %>"><%= koncert.Miejsce_koncertu %> - <%= koncert.Data_koncertu.toLocaleString() %></option>
-							<% }%>
+							<select <%= (formMode == 'showDetails') ? 'disabled' : '' %> id="koncerty" name="KoncertyIdKoncertu">
+								<% for (let koncert of allKoncerty) { %>
+									<option value="<%= koncert._IdKoncertu %>"><%= koncert.Miejsce_koncertu %> - <%= koncert.Data_koncertu.toLocaleString() %></option>
+								<% }%>
 								<span id="koncerty_error" class="errors-text">
                 					<%= validationErrors.length && validationErrors.find(err => err.path === 'koncerty') ? validationErrors.find(err => err.path === 'koncerty').message : '' %>
                					 </span>
-						</select><br /> <br />
+							</select><br /> <br />
 							<div>
 								<span>
 									Podaj ilość osób: *</span> <input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="number" id="ilosc" name="Ilosc_osob" min="1" max="20" placeholder="2" value="<%=rezerwacja.Ilosc_osob%>">
