@@ -23,11 +23,13 @@ const Rezerwacje = sequelize.define('Rezerwacje', {
             notEmpty: {
                 msg: "Pole jest wymagane"
             },
+            max: 1000,
+            min: 1
         }
     },
     Czy_przedplata: {
         type: Sequelize.BOOLEAN,
-        allowNull: true
+        allowNull: false
     },
 
     Skad_wie_o_koncercie: {
@@ -36,7 +38,14 @@ const Rezerwacje = sequelize.define('Rezerwacje', {
     },
     Komentarz: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
+        validate: {
+
+            len: {
+                args: [0,600],
+                msg: "Pole powinno zawierać od 0 do 600 znaków"
+            },
+        }
     }
 
 

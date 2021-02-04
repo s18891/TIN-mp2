@@ -34,13 +34,13 @@ function validateFormKoncerty() {
     miejsceKoncertuInput.classList.add("error-input");
     miejsceKoncertuError.innerText = "Pole nie powinno być puste";
   }
-  if (!checkNumberRange(max_iloscInput.value, 0, 1000000)) {
+  if (!checkNumberRange(max_iloscInput.value, 1, 1000000)) {
     valid = false;
     max_iloscInput.classList.add("error-input");
     max_iloscError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
     }
 
-  if (!checkNumberRange(czas_trwaniaInput.value, 0, 1000000)) {
+  if (!checkNumberRange(czas_trwaniaInput.value, 1, 1000000)) {
     valid = false;
     czas_trwaniaInput.classList.add("error-input");
     czas_trwaniaError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
@@ -60,9 +60,7 @@ function validateFormRezerwacje() {
 
   const iloscError = document.getElementById('ilosc_error');
   const komentarzError = document.getElementById('Komentarz_error');
-  const Czy_przedplataError = document.getElementById('Czy_przedplata');
-
-
+  const Czy_przedplataError = document.getElementById('Czy_przedplata_error');
 
   resetErrors([iloscInput, komentarzInput, Czy_przedplataInput], [iloscError, komentarzError, Czy_przedplataError]);
 
@@ -70,10 +68,10 @@ function validateFormRezerwacje() {
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(iloscInput.value, 2, 60)) {//////////// zakres zamiast ilość znaków
+  } else if (!checkNumberRange(iloscInput.value, 1, 1000)) {
     valid = false;
     iloscInput.classList.add("error-input");
-    iloscError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+    iloscError.innerText = "Pole powinno wartość od 1 do 1000";
   }
 
   if (!checkRequired(Czy_przedplataInput.value)) {
@@ -81,6 +79,7 @@ function validateFormRezerwacje() {
     Czy_przedplataInput.classList.add("error-koncerty");
     Czy_przedplataError.innerText = "Pole jest wymagane";
   }
+
 
 
 
@@ -239,6 +238,8 @@ function checkTextLengthRange(value, min, max) {
 }
 
 function checkNumberRange(value, min, max) {
+  min=min-1;
+  max=max+1;
   let bool = false;
   if (!value) {
     return true;

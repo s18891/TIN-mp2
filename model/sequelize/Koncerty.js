@@ -37,6 +37,7 @@ const Koncerty = sequelize.define('Koncerty', {
         type: Sequelize.INTEGER,
         allowNull: false,
         validate: {
+            isNumeric: true,
             max: 1000000,
             min: 1
         }
@@ -45,6 +46,7 @@ const Koncerty = sequelize.define('Koncerty', {
         type: Sequelize.TIME,
         allowNull: true,
         validate: {
+
             max: 1000000,
             min: 1
         }
