@@ -2,11 +2,18 @@ function validateFormKoncerty() {
   let valid = true;
   const miejsceKoncertuInput = document.getElementById('Miejsce_koncertu');
   const dataKoncertuInput = document.getElementById('Data_koncertu');
+  const max_iloscInput = document.getElementById('max_ilosc');
+  const czas_trwaniaInput = document.getElementById('czas_trwania');
+
+
 
   const miejsceKoncertuError = document.getElementById('Miejsce_koncertu_error');
   const dataKoncertuError = document.getElementById('Data_koncertu_error');
+  const max_iloscError = document.getElementById('max_ilosc_error');
+  const czas_trwaniaError = document.getElementById('czas_trwania_error');
 
-  resetErrors([miejsceKoncertuInput, dataKoncertuInput], [miejsceKoncertuError, dataKoncertuError]);
+
+  resetErrors([miejsceKoncertuInput, dataKoncertuInput, max_iloscInput, czas_trwaniaInput], [miejsceKoncertuError, dataKoncertuError, max_iloscError, czas_trwaniaError]);
 
   if (!checkRequired(miejsceKoncertuInput.value)) {
     valid = false;
@@ -22,11 +29,25 @@ function validateFormKoncerty() {
     valid = false;
     dataKoncertuInput.classList.add("error-input");
     dataKoncertuError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(miejsceKoncertuInput.value, 2, 60)) {
+  } else if (!checkTextLengthRange(dataKoncertuInput.value, 2, 60)) {
     valid = false;
-    dataKoncertuInput.classList.add("error-input");
-    dataKoncertuError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+    miejsceKoncertuInput.classList.add("error-input");
+    miejsceKoncertuError.innerText = "Pole nie powinno być puste";
   }
+  if (!checkNumberRange(max_iloscInput.value, 0, 1000000)) {
+    valid = false;
+    max_iloscInput.classList.add("error-input");
+    max_iloscError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
+    }
+
+  if (!checkNumberRange(czas_trwaniaInput.value, 0, 1000000)) {
+    valid = false;
+    czas_trwaniaInput.classList.add("error-input");
+    czas_trwaniaError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
+  }
+
+
+
   return valid;
 }
 
@@ -113,6 +134,10 @@ function validateFormSluchacze() {
     valid = false;
     emailInput.classList.add("error-input");
     emailError.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+  } else if (!checkEmail(emailInput.value)) {
+    valid = false;
+    emailInput.classList.add("error-input");
+    emailError.innerText = "Nie wprowadzono poprawnego adresu email";
   }
 
   if (!checkRequired(imieInput.value)) {
@@ -177,6 +202,27 @@ function checkRequired(value) {
   return true;
 }
 
+function checkEmail(value) {
+  if (!value) {
+    return false;
+  }
+  value = value.toString().trim();
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  return re.test(value.toLocaleLowerCase());
+}
+function checkDateAfter(value) {
+  if (!value) {
+    return false;
+  }
+  testDate = value;
+  currDate = Date.now();
+console.log("TEST DATE:   " + testDate)
+  console.log("CURR DATE:   " + currDate)
+
+  return currDate-testDate;
+}
+
 function checkTextLengthRange(value, min, max) {
   if (!value) {
     return false;
@@ -188,6 +234,21 @@ function checkTextLengthRange(value, min, max) {
   }
   if (min && length < min) {
     return false;
+  }
+  return true;
+}
+
+function checkNumberRange(value, min, max) {
+  let bool = false;
+  if (!value) {
+    return true;
+  }
+
+  if (value >= max) {
+    return bool;
+  }
+  if (value <= min) {
+    return bool;
   }
   return true;
 }

@@ -225,9 +225,19 @@ div:target .z {
 
 /* tabela */
 
-.tg  {border-collapse:collapse;border-spacing:0;}
+.tg  {border-collapse:collapse;border-spacing:0; table-layout: fixed; width: 100%;
+}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
 	overflow:hidden;padding:20px 10px;word-break:normal;}
 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
 	font-weight:normal;overflow:hidden;padding:20px 10px;word-break:normal;}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+
+
+
+.errors-text {
+	font-size: 0.85em;
+	color: #e74c3c;
+	//line-height: 2.25rem;
+
+}

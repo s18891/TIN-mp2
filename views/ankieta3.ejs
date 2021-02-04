@@ -3,17 +3,25 @@
 			<div id="prawy">
 				<div id="lewy_srodek">
 
-					<script type="application/javascript" src="/js/validationEmpForm.js"></script>
 					<h2><%= pageTitle %></h2>
 
-					<form class="form" method="post" novalidate ><div id="formularz">
+					<form class="form" method="post" novalidate  onsubmit="return validateFormSluchacze();" ><div id="formularz">
 							<input type="hidden" name="_id" value="<%= sluchacz._IdSluchacza %>">
 
 
 							Podaj swoje imię: * <input type="text" name="Imie" id="Imie" placeholder="2-60 znaków" value="<%= sluchacz.Imie %>"
-									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+							<span id="imie_error" class="errors-text">
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
+                </span>
+
+							<br /> <br />
 						Podaj swoje nazwisko: * <input type="text" name="Nazwisko" id="Nazwisko" placeholder="2-60 znaków" value="<%= sluchacz.Nazwisko %>"
-									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/><br /> <br />
+									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+
+							<span id="imie_error" class="errors-text">
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
+                </span><br /> <br />
 						Podaj date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" value="<%= sluchacz.createdAt.toLocaleString() %>" disabled/><br /> <br />
 
 						<br /><br /><br />

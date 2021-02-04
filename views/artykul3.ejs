@@ -27,7 +27,7 @@
                         <span id="Data_koncertu_error" class="errors-text">
                             <%= validationErrors.length && validationErrors.find(err => err.path === 'Data_koncertu') ? validationErrors.find(err => err.path === 'Data_koncertu').message : '' %><br /> <br />
                         </span> <br />
-                    <%= (formMode == 'showDetails') ? 'Maksymalna ilość osób:' : 'Podaj maksymalną ilość osób:' %><input
+                    <%= (formMode == 'showDetails') ? 'Maksymalna ilość osób:' : 'Podaj maksymalną ilość osób: * ' %><input
                                 type="number"
                                 id="max_ilosc"
                                 name="Maksymalna_ilosc_miejsc"
@@ -36,7 +36,11 @@
                                 placeholder="200"
                                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                                 value="<%= koncert.Maksymalna_ilosc_miejsc %>"
-                        /><br /> <br />
+                        />
+                        <span id="max_ilosc_error" class="errors-text">
+                            <%= validationErrors.length && validationErrors.find(err => err.path === 'max_ilosc') ? validationErrors.find(err => err.path === 'max_ilosc').message : '' %><br /> <br />
+                        </span>
+                        <br /> <br />
                     <%= (formMode == 'showDetails') ? 'Czas trwania koncertu:' : 'Podaj czas trwania koncertu:' %><input
                                 type="number"
                                 id="czas_trwania"
@@ -47,6 +51,9 @@
                             <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                                 value="<%= koncert.Czas_trwania_koncertu %>"
                                 />
+                        <span id="czas_trwania_error" class="errors-text">
+                            <%= validationErrors.length && validationErrors.find(err => err.path === 'czas_trwania') ? validationErrors.find(err => err.path === 'czas_trwania').message : '' %><br /> <br />
+                        </span>
 
                     </br></br> <br />
                     <%if (formMode != 'showDetails') { %>
@@ -55,7 +62,7 @@
                     <% } %>
 
                 </div></form><br />
-                <% if ((formMode == 'showDetails' || formMode == 'edit') && koncert.Rezerwacjes.length) { %>
+                <% if ((formMode == 'showDetails' ) && koncert.Rezerwacjes.length) { %>
                 <h2>
                     Szczegóły Koncertu
                 </h2>

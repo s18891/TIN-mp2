@@ -86,6 +86,7 @@ exports.updateSluchacze = async (req, res, next) => {
     try {
         await SluchaczeRepository.updateSluchacze(sluchaczId, sluchaczData)
     } catch (e) {
+        errors = e.errors
         return res.render('ankieta3', {
             sluchacz: await SluchaczeRepository.getSluchaczeById(req.params.IdSluchacza),
             pageTitle: 'Edycja sluchacza',
@@ -93,7 +94,7 @@ exports.updateSluchacze = async (req, res, next) => {
             btnLabel: 'Edytuj sluchacza',
             formAction: '/sluchacze/edit',
             navLocation: 'sluchacz',
-            validationErrors: e.errors,
+            validationErrors: errors
         });
     }
 

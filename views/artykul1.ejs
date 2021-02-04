@@ -31,7 +31,7 @@
                     <% for (let koncert of koncerty){ %>
                         <tr>
                         <td class="tg-0lax"><%= koncert.Miejsce_koncertu %></td>
-                        <td class="tg-0lax"><%= koncert.Data_koncertu %></td>
+                        <td class="tg-0lax"><%=koncert.Data_koncertu instanceof Date ? koncert.Data_koncertu.toISOString().split('T')[0] : koncert.Data_koncertu   %></td>
                         <td class="tg-0lax"><%= koncert.Maksymalna_ilosc_miejsc %></td>
                         <td class="tg-0lax"><%= koncert.Czas_trwania_koncertu %></td>
                             <%   if (user && user.isAdmin) { %>

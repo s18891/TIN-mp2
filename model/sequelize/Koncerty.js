@@ -27,7 +27,7 @@ const Koncerty = sequelize.define('Koncerty', {
         type: Sequelize.DATE,
         allowNull: false,
         validate: {
-            isAfter: new Date().toISOString() ,
+
             notEmpty: {
                 msg: "Pole jest wymagane"
             },
@@ -35,11 +35,19 @@ const Koncerty = sequelize.define('Koncerty', {
     },
     Maksymalna_ilosc_miejsc: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            max: 1000000,
+            min: 1
+        }
     },
     Czas_trwania_koncertu: {
         type: Sequelize.TIME,
-        allowNull: true
+        allowNull: true,
+        validate: {
+            max: 1000000,
+            min: 1
+        }
 
     }
 });
