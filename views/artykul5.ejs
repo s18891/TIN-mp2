@@ -28,7 +28,7 @@
                                     <button>Edytuj</button>
                                 </a></td>
                                 <td class="tg-0lax"><a href="/sluchacze/delete/<%=sluchacz._IdSluchacza%>">
-                                    <button>Usuń</button>
+                                        <% if (!sluchacz.isAdmin){ %><button>Usuń</button> <%}%>
                                 </a></td>
 
                             </tr>
