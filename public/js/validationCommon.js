@@ -80,10 +80,6 @@ function validateFormRezerwacje() {
     Czy_przedplataError.innerText = "Pole jest wymagane";
   }
 
-
-
-
-
   if (!checkRequired(komentarzInput.value)) {
     valid = false;
     komentarzInput.classList.add("error-input");

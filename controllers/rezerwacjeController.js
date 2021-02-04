@@ -42,7 +42,7 @@ exports.showAddRezerwacjeForm = (req, res, next) => {
                     formMode: 'createNew',
                     allSluchacze: allSluchacze,
                     allKoncerty: allKoncerty,
-                    pageTitle: 'Nowe rezerwacje',
+                    pageTitle: 'Nowa rezerwacja',
                     btnLabel: 'Dodaj rezerwacje',
                     formAction: '/rezerwacje/add',
                     navLocation: 'rezerwacja',
@@ -150,7 +150,7 @@ exports.addRezerwacje = async (req, res, next) => {
             formMode: 'createNewAsAdmin',
             allSluchacze: await SluchaczeRepository.getSluchacze(),
             allKoncerty: await KoncertyRepository.getKoncerty(),
-            pageTitle: 'Dodanie rezerwacji',
+            pageTitle: 'Nowa rezerwacja',
             btnLabel: 'Dodaj rezerwacje',
             formAction: '/rezerwacje/add',
             navLocation: 'rezerwacja',
@@ -180,7 +180,7 @@ exports.updateRezerwacje = async (req, res, next) => {
             btnLabel: 'Edytuj rezerwacje',
             formAction: '/rezerwacje/edit',
             navLocation: 'rezerwacja',
-            validationErrors: errors,
+            validationErrors: errors
         });
     }
     return res.redirect('/rezerwacje')
