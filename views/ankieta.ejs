@@ -34,12 +34,12 @@
 								<span>
 									Podaj ilość osób: *</span> <input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="number" id="ilosc" name="Ilosc_osob" min="1" max="20" placeholder="2" value="<%=rezerwacja.Ilosc_osob%>">
 							<span id="ilosc_error" class="errors-text">
-                					<%= validationErrors.length && validationErrors.find(err => err.path === 'ilosc') ? validationErrors.find(err => err.path === 'ilosc').message : '' %>
+                					<%= validationErrors.length && validationErrors.find(err => err.path === 'Ilosc_osob') ? validationErrors.find(err => err.path === 'Ilosc_osob').message : '' %>
 							</span></div>
 						Czy chcesz dokonać przedpłaty: *
 							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? 'checked' : ''%> id="Czy_przedplata" name="Czy_przedplata" value="1" />Tak
 							<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="radio" <%= rezerwacja.Czy_przedplata ? '' : 'checked'%> id="Czy_przedplata" name="Czy_przedplata" value="0" />Nie <br /><br />
-							<span id="ilosc_error" class="errors-text">
+							<span id="Czy_przedplata_error" class="errors-text">
                 					<%= validationErrors.length && validationErrors.find(err => err.path === 'Czy_przedplata') ? validationErrors.find(err => err.path === 'Czy_przedplata').message : '' %>
                					 </span>
 
@@ -52,7 +52,10 @@
 							<option <%= rezerwacja.Skad_wie_o_koncercie === 'Inna' ? 'selected' : ''%>>Inna</option>
 						</select>
 							<p>Dodatkowe informacje:</p>
-							<textarea <%= (formMode == 'showDetails') ? 'disabled' : '' %> name="Komentarz" cols="50" rows="10"><%= rezerwacja.Komentarz %></textarea>
+							<textarea <%= (formMode == 'showDetails') ? 'disabled' : '' %> name="Komentarz" id="Komentarz" cols="50" rows="10"><%= rezerwacja.Komentarz %></textarea>
+								<span id="Komentarz_error" class="errors-text">
+                					<%= validationErrors.length && validationErrors.find(err => err.path === 'Komentarz') ? validationErrors.find(err => err.path === 'Komentarz').message : '' %>
+               					 </span>
 						<br /><br />
 						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="submit" value="Dodaj rezerwacje" />
 						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="reset" value="Wyczyść dane" />

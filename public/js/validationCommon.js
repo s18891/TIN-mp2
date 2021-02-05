@@ -55,14 +55,12 @@ function validateFormRezerwacje() {
   let valid = true;
   const iloscInput = document.getElementById('ilosc');
   const komentarzInput = document.getElementById('Komentarz');
-  const Czy_przedplataInput = document.getElementById('Czy_przedplata');
 
 
   const iloscError = document.getElementById('ilosc_error');
   const komentarzError = document.getElementById('Komentarz_error');
-  const Czy_przedplataError = document.getElementById('Czy_przedplata_error');
 
-  resetErrors([iloscInput, komentarzInput, Czy_przedplataInput], [iloscError, komentarzError, Czy_przedplataError]);
+  resetErrors([iloscInput, komentarzInput], [iloscError, komentarzError]);
 
   if (!checkRequired(iloscInput.value)) {
     valid = false;
@@ -72,12 +70,6 @@ function validateFormRezerwacje() {
     valid = false;
     iloscInput.classList.add("error-input");
     iloscError.innerText = "Pole powinno wartość od 1 do 1000";
-  }
-
-  if (!checkRequired(Czy_przedplataInput.value)) {
-    valid = false;
-    Czy_przedplataInput.classList.add("error-koncerty");
-    Czy_przedplataError.innerText = "Pole jest wymagane";
   }
 
   if (!checkRequired(komentarzInput.value)) {
