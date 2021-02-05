@@ -53,8 +53,8 @@ const Sluchacze = sequelize.define('Sluchacze', {
                 msg: "Pole jest wymagane"
             },
             len: {
-                args: [5,60],
-                msg: "Pole powinno zawierać od 5 do 60 znaków"
+                args: [60,70],
+                msg: "Pole powinno zawierać od 60 do 70 znaków, po zaszyfrowaniu"
             },
         }
     },

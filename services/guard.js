@@ -1,7 +1,7 @@
 const SluchaczeRespository = require("../repository/sequelize/SluchaczeRepository");
 
 exports.isLoggedIn = (req) => {
-  console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w guard.js     ")
+  //console.log("WEJŚCIE W SPRAWDZENIE LOGOWANIA w guard.js     ")
   const user = req.session.user;
   if (!user) {
     req.session.redirectAfterLogin = req.originalUrl;

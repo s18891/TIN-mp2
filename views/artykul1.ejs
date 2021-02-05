@@ -10,6 +10,7 @@
             <div id="lewy_srodek">
 
                 <h2>Koncerty</h2>
+                <% if (koncerty.length) { %>
 
                 <table class="tg">
                     <thead>
@@ -51,6 +52,9 @@
 
                     </tbody>
                 </table>
+                <% } else { %>
+                    Brak koncertów
+                <% } %>
                 </br>
                 <%   if (user && user.isAdmin) { %>
                 <a href="/koncerty/add">

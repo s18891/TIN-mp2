@@ -7,27 +7,43 @@
 
 					<form class="form" method="post" novalidate  onsubmit="return validateFormSluchacze();" ><div id="formularz">
 							<input type="hidden" name="_id" value="<%= sluchacz._IdSluchacza %>">
+							<div>
+								Login: * <input type="text" id="login" name="login" value="<%= sluchacz.login %>"
+								<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+								<span id="login_error" class="errors-text">
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'login') ? validationErrors.find(err => err.path === 'login').message : '' %>
+									<%= validationErrors.length && validationErrors.find(err => err.message === 'Sluchaczes.login must be unique') ? "Podany login jest już używany" : '' %>
+                </span>
+							</div>
+							<div>
+								E-mail: * <input type="text" id="email" name="email" value="<%= sluchacz.email %>"
+								<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+								<span id="email_error" class="errors-text">
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'email') ? validationErrors.find(err => err.path === 'email').message : '' %>
+									<%= validationErrors.length && validationErrors.find(err => err.message === 'Sluchaczes.email must be unique') ? "Podany email jest już używany" : '' %>
+                </span>
+							</div>
 
-
-							Podaj swoje imię: * <input type="text" name="Imie" id="Imie" placeholder="2-60 znaków" value="<%= sluchacz.Imie %>"
+							Imię: * <input type="text" name="Imie" id="Imie" placeholder="2-60 znaków" value="<%= sluchacz.Imie %>"
 									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 							<span id="imie_error" class="errors-text">
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
                 </span>
 
 							<br /> <br />
-						Podaj swoje nazwisko: * <input type="text" name="Nazwisko" id="Nazwisko" placeholder="2-60 znaków" value="<%= sluchacz.Nazwisko %>"
+						Nazwisko: * <input type="text" name="Nazwisko" id="Nazwisko" placeholder="2-60 znaków" value="<%= sluchacz.Nazwisko %>"
 									<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
 							<span id="imie_error" class="errors-text">
-                <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
+                <%= validationErrors.length && validationErrors.find(err => err.path === 'Nazwisko') ? validationErrors.find(err => err.path === 'Nazwisko').message : '' %>
                 </span><br /> <br />
-						Podaj date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" value="<%= sluchacz.createdAt.toLocaleString() %>" disabled/><br /> <br />
+
+						Date dolaczenia: * 	<input type="text" name="Data_dolaczenia" id="Data_dolaczenia" value="<%= sluchacz.createdAt.toLocaleString() %>" disabled/><br /> <br />
 
 						<br /><br /><br />
 						<% if (formMode != 'showDetails') { %>
 						<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-							<input type="reset" value="Wyczyść dane" />
+							</br>
 							<% } %>
 
 					</div></form>
@@ -69,9 +85,9 @@
 							</tbody>
 						</table>
 					<% } %>
-
+					</br>
 					<a href="/sluchacze">
-						<button>Powrót listy osób</button>
+						<button>Powrót do listy osób</button>
 					</a>
 
 				</div>

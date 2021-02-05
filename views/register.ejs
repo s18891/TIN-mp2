@@ -6,14 +6,14 @@
 
         <form method="POST" novalidate onsubmit="return validateFormSluchacze();">
             <div>
-                Login: <input type="text" id="login" name="login" value="<%= auth.login %>" />
+                Login: * <input type="text" id="login" name="login" value="<%= auth.login %>" />
                 <span id="login_error" class="errors-text">
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'login') ? validationErrors.find(err => err.path === 'login').message : '' %>
                 <%= validationErrors.length && validationErrors.find(err => err.message === 'Sluchaczes.login must be unique') ? "Podany login jest już używany" : '' %>
                 </span>
             </div>
             <div>
-                E-mail: <input type="text" id="email" name="email" value="<%= auth.email %>" />
+                E-mail: * <input type="text" id="email" name="email" value="<%= auth.email %>" />
                 <span id="email_error" class="errors-text">
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'email') ? validationErrors.find(err => err.path === 'email').message : '' %>
                 <%= validationErrors.length && validationErrors.find(err => err.message === 'Sluchaczes.email must be unique') ? "Podany email jest już używany" : '' %>
@@ -22,20 +22,20 @@
             <div>
 
 
-                Imie: <input type="text" id="Imie" name="Imie" value="<%= auth.Imie %>" />
+                Imie: * <input type="text" id="Imie" name="Imie" value="<%= auth.Imie %>" />
                 <span id="imie_error" class="errors-text">
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'Imie') ? validationErrors.find(err => err.path === 'Imie').message : '' %>
                 </span>
             </div>
             <div>
 
-                Nazwisko: <input type="text" id="Nazwisko" name="Nazwisko" value="<%= auth.Nazwisko %>" />
+                Nazwisko: * <input type="text" id="Nazwisko" name="Nazwisko" value="<%= auth.Nazwisko %>" />
                 <span id="nazwisko_error" class="errors-text">
                 <%= validationErrors.length && validationErrors.find(err => err.path === 'Nazwisko') ? validationErrors.find(err => err.path === 'Nazwisko').message : '' %>
                 </span>
             </div>
             <div>
-                Hasło: <input type="password" id="password" name="password" />
+                Hasło: * <input type="password" id="password" name="password" />
                 <span id="password_error" class="errors-text">
                     <%= validationErrors.length && validationErrors.find(err => err.path === 'password') ? validationErrors.find(err => err.path === 'password').message : '' %>
                 </span>

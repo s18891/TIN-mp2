@@ -72,7 +72,7 @@ exports.addSluchacze = async (req, res, next) => {
     }  catch (e) {
         return res.render('register', {validationErrors: e.errors, auth: auth});
     }
-
+    req.session.flashMessage = 'Dodano nowy rekord';
     return res.redirect('/sluchacze');
 };
 
@@ -97,7 +97,7 @@ exports.updateSluchacze = async (req, res, next) => {
             validationErrors: errors
         });
     }
-
+    req.session.flashMessage = 'Zaktualizowano rekord';
     return res.redirect('/sluchacze');
 };
 
@@ -108,6 +108,7 @@ exports.deleteSluchacze = (req, res, next) => {
     const sluchaczId = req.params.IdSluchacza;
     SluchaczeRepository.deleteSluchacze(sluchaczId)
         .then( () => {
+            req.session.flashMessage = 'Usunięto rekord';
             res.redirect('/sluchacze');
         });
 };

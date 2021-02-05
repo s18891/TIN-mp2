@@ -57,8 +57,9 @@
                 					<%= validationErrors.length && validationErrors.find(err => err.path === 'Komentarz') ? validationErrors.find(err => err.path === 'Komentarz').message : '' %>
                					 </span>
 						<br /><br />
+								<% if (formMode != 'showDetails') { %>
 						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="submit" value="Dodaj rezerwacje" />
-						<input <%= (formMode == 'showDetails') ? 'disabled' : '' %> type="reset" value="Wyczyść dane" />
+							<%}%>
 					</div></form>
 				</br>
 					<a href="/rezerwacje">

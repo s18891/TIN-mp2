@@ -1,5 +1,12 @@
 <%- include('./fragments/header.ejs') %>
 
+<% if (flashMessage) { %>
+    <div id="flashMessage">
+        <%= flashMessage %>
+    </div>
+    <% clearFlashMessage()%>
+<% } %>
+
         <div id="prawy">
             <div id="lewy_srodek">
 
@@ -48,7 +55,6 @@
             </div>
 
 
-        </div>
 
 
 <%- include('./fragments/footer.ejs') %>

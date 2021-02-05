@@ -157,6 +157,7 @@ exports.addRezerwacje = async (req, res, next) => {
             validationErrors: e.errors,
         });
     }
+    req.session.flashMessage = 'Dodano nowy rekord';
     return res.redirect('/rezerwacje');
 };
 
@@ -183,6 +184,7 @@ exports.updateRezerwacje = async (req, res, next) => {
             validationErrors: errors
         });
     }
+    req.session.flashMessage = 'Zaktualizowano rekord';
     return res.redirect('/rezerwacje')
 };
 
@@ -193,6 +195,7 @@ exports.deleteRezerwacje = (req, res, next) => {
     const rezerwacjaId = req.params.IdRezerwacji;
     RezerwacjeRepository.deleteRezerwacje(rezerwacjaId)
         .then( () => {
+            req.session.flashMessage = 'Usunięto rekord';
             res.redirect('/rezerwacje');
         });
 };

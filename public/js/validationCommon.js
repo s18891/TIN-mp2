@@ -29,24 +29,22 @@ function validateFormKoncerty() {
     valid = false;
     dataKoncertuInput.classList.add("error-input");
     dataKoncertuError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(dataKoncertuInput.value, 2, 60)) {
-    valid = false;
-    miejsceKoncertuInput.classList.add("error-input");
-    miejsceKoncertuError.innerText = "Pole nie powinno być puste";
   }
-  if (!checkNumberRange(max_iloscInput.value, 1, 1000000)) {
+
+  if (!checkRequired(max_iloscInput.value)) {
+    valid = false;
+    max_iloscInput.classList.add("error-input");
+    max_iloscError.innerText = "Pole jest wymagane";
+  } else  if (!checkNumberRange(max_iloscInput.value, 1, 1000000)) {
     valid = false;
     max_iloscInput.classList.add("error-input");
     max_iloscError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
     }
-
   if (!checkNumberRange(czas_trwaniaInput.value, 1, 1000000)) {
     valid = false;
     czas_trwaniaInput.classList.add("error-input");
     czas_trwaniaError.innerText = "Pole powinno zawierac wartości od 1 do 1000000";
   }
-
-
 
   return valid;
 }
@@ -72,14 +70,10 @@ function validateFormRezerwacje() {
     iloscError.innerText = "Pole powinno wartość od 1 do 1000";
   }
 
-  if (!checkRequired(komentarzInput.value)) {
+  if (!checkTextLengthRangeOrEmpty(komentarzInput.value, 0, 500)) {
     valid = false;
     komentarzInput.classList.add("error-input");
-    komentarzError.innerText = "Pole jest wymagane";
-  } else if (!checkTextLengthRange(komentarzInput.value, 2, 500)) {
-    valid = false;
-    komentarzInput.classList.add("error-input");
-    komentarzError.innerText = "Pole powinno zawierać od 2 do 500 znaków";
+    komentarzError.innerText = "Pole powinno zawierać od 0 do 500 znaków";
   }
   return valid;
 }
@@ -154,7 +148,7 @@ function validateFormSluchacze() {
   } else if (!checkTextLengthRange(passwordInput.value, 5, 60)) {
     valid = false;
     passwordInput.classList.add("error-input");
-    passwordError.innerText = "Pole powinno zawierać od 5 do 60 znaków";
+    passwordError.innerText = "Pole powinno zawierać od 5 do 60 znakówww";
   }
 
 
@@ -214,6 +208,19 @@ function checkTextLengthRange(value, min, max) {
   if (!value) {
     return false;
   }
+  value = value.toString().trim();
+  const length = value.length;
+  if (max && length > max) {
+    return false;
+  }
+  if (min && length < min) {
+    return false;
+  }
+  return true;
+}
+
+function checkTextLengthRangeOrEmpty(value, min, max) {
+
   value = value.toString().trim();
   const length = value.length;
   if (max && length > max) {

@@ -85,7 +85,7 @@ module.exports = () => {
         .then( rezerwacje => {console.log(rezerwacje);
             if( !rezerwacje || rezerwacje.length == 0 ) {
                 return Rezerwacje.bulkCreate([
-                    {SluchaczeIdSluchacza: wszyscySluchacze[1]._IdSluchacza, KoncertyIdKoncertu: wszystkieKoncerty[0]._IdKoncertu, Ilosc_osob: 5000, Czy_przedplata: 'true', Skad_wie_o_koncercie: 'Radio'},
+                    {SluchaczeIdSluchacza: wszyscySluchacze[1]._IdSluchacza, KoncertyIdKoncertu: wszystkieKoncerty[0]._IdKoncertu, Ilosc_osob: 500, Czy_przedplata: 'true', Skad_wie_o_koncercie: 'Radio'},
                 ]);
             } else {
                 return rezerwacje;

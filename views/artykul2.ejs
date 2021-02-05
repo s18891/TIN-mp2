@@ -1,5 +1,12 @@
 <%- include('./fragments/header.ejs') %>
 
+<% if (flashMessage) { %>
+    <div id="flashMessage">
+        <%= flashMessage %>
+    </div>
+    <% clearFlashMessage()%>
+<% } %>
+
         <div id="prawy">
             <div id="lewy_srodek">
 
@@ -10,11 +17,9 @@
                     <thead>
                     <tr>
                         <th class="tg-0lax">Numer rezerwacji</th>
-                        <th class="tg-0lax">Imię</th>
                         <th class="tg-0lax">Nazwisko</th>
                         <th class="tg-0lax">Miejsce Koncertu</th>
                         <th class="tg-0lax">Data koncertu</th>
-                        <th class="tg-0lax">Ilość osób</th>
                         <th class="tg-0lax">Szczegóły</th>
                         <th class="tg-0lax">Edytuj</th>
                         <th class="tg-0lax">Usuń</th>
@@ -24,11 +29,9 @@
                     <% for (let rezerwacja of rezerwacje) { %>
                         <tr>
                             <td class="tg-0lax"><%= rezerwacja._IdRezerwacji %></td>
-                            <td class="tg-0lax"><%= rezerwacja.Sluchacze.Imie %></td>
                             <td class="tg-0lax"><%= rezerwacja.Sluchacze.Nazwisko %></td>
                             <td class="tg-0lax"><%= rezerwacja.Koncerty.Miejsce_koncertu %></td>
                             <td class="tg-0lax"><%= rezerwacja.Koncerty.Data_koncertu.toLocaleString() %></td>
-                            <td class="tg-0lax"><%= rezerwacja.Ilosc_osob %></td>
                             <td class="tg-0lax"> <a href="/rezerwacje/details/<%= rezerwacja._IdRezerwacji %>">
                                 <button>Szczegóły</button>
                             </a></td>

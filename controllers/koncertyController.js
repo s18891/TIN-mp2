@@ -86,6 +86,7 @@ exports.updateKoncerty = (req, res, next) => {
     const koncertData = { ...req.body };
     KoncertyRepository.updateKoncerty(koncertId, koncertData)
         .then( result => {
+            req.session.flashMessage = 'Zaktualizowano rekord';
             res.redirect('/koncerty');
         }).catch(err => {
         res.render('artykul3', {
@@ -104,6 +105,7 @@ exports.deleteKoncerty = (req, res, next) => {
     const koncertId = req.params.IdKoncertu;
     KoncertyRepository.deleteKoncerty(koncertId)
         .then( () => {
+            req.session.flashMessage = 'Usunięto rekord';
             res.redirect('/koncerty');
         });
 };
